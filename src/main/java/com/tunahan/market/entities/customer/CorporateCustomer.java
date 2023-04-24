@@ -15,6 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CorporateCustomer extends Customer{
 
+	private String name;
 	private String taxNumber;
 	
 }
