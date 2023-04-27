@@ -13,6 +13,7 @@ public interface ProductService {
 	GetProductResponse getById(long id);
 	List<GetAllProductResponse> getByName(String name);
 	CreateProductResponse add(CreateProductRequest createRequest);
+	void addCategoryToProduct(long productId, long categoryId);
 	
 	
 }

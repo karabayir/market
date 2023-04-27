@@ -1,6 +1,4 @@
-package com.tunahan.market.dtos.responses.order;
-
-import java.util.Date;
+package com.tunahan.market.dtos.responses.intermediate;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllOrderResponse{
+public class GetAllProductCategoryResponse{
 
 	private long id;
-	private long customerId;
 	private long productId;
-	private Date date;
-	private double totalPrice;
+	private long categoryId;
 }

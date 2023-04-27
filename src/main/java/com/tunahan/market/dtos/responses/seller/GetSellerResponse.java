@@ -1,12 +1,20 @@
 package com.tunahan.market.dtos.responses.seller;
 
-public record GetSellerResponse(
-		long id,
-		String taxNumber,
-		String name,
-		String email,
-		String address,
-		String phone
-		) {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class GetSellerResponse{
+
+	private long id;
+	private String taxNumber;
+	private String name;
+	private String email;
+	private String address;
+	private String phone;
 }

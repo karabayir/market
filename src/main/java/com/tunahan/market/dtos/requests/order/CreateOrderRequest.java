@@ -2,11 +2,19 @@ package com.tunahan.market.dtos.requests.order;
 
 import java.util.Date;
 
-public record CreateOrderRequest(
-		long customerId,
-		long productId,
-		Date date,
-		double totalPrice
-		) {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateOrderRequest{
+
+	private long customerId;
+	private long productId;
+	private Date date;
+	private double totalPrice;
 }

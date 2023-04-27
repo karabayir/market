@@ -1,5 +1,15 @@
 package com.tunahan.market.dtos.requests.category.cargoCompany;
 
-public record CreateCargoCompanyRequest(String name) {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateCargoCompanyRequest {
+
+	private String name;
 }

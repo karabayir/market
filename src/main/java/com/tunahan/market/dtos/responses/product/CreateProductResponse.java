@@ -1,12 +1,20 @@
 package com.tunahan.market.dtos.responses.product;
 
-public record CreateProductResponse(
-		long id, 
-		String name,
-		String description,
-		String image,
-		double unitPrice,
-		double unitsInStock
-		) {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateProductResponse{
+
+	private long id; 
+	private String name;
+	private String description;
+	private String image;
+	private double unitPrice;
+	private double unitsInStock;
 }

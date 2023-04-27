@@ -1,5 +1,16 @@
 package com.tunahan.market.dtos.responses.category;
 
-public record GetCategoryResponse(long id, String name) {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class GetCategoryResponse{
+
+	private long id;
+	private String name;
 }
