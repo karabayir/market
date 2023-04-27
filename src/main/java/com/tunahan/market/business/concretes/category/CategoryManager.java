@@ -11,6 +11,7 @@ import com.tunahan.market.business.abstracts.intermediate.ProductCategoryService
 import com.tunahan.market.business.abstracts.product.ProductService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.dtos.requests.category.CreateCategoryRequest;
+import com.tunahan.market.dtos.requests.intermediate.CreateProductCategoryRequest;
 import com.tunahan.market.dtos.responses.category.CreateCategoryResponse;
 import com.tunahan.market.dtos.responses.category.GetAllCategoryResponse;
 import com.tunahan.market.dtos.responses.category.GetCategoryResponse;
@@ -79,11 +80,11 @@ public class CategoryManager implements CategoryService{
 	}
 
 	@Override
-	public void addProductToCategory(long categoryId, long productId) {
-		rules.checkIfCategoryExists(categoryId);
-		rulesProduct.checkIfProductExists(productId);
-		Category category = categoryRepository.findById(categoryId).orElseThrow();
-		Product  product = mapperService.forResponse().map(productService.getById(productId), Product.class);
+	public void addProductToCategory(CreateProductCategoryRequest request) {
+		rules.checkIfCategoryExists(request.getCategoryId());
+		rulesProduct.checkIfProductExists(request.getProductId());
+		Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow();
+		Product  product = mapperService.forResponse().map(productService.getById(request.getProductId()), Product.class);
 		ProductCategory productCategory = new ProductCategory();
 		productCategory.setCategory(category);
 		productCategory.setProduct(product);

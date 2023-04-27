@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.product.ProductService;
+import com.tunahan.market.dtos.requests.intermediate.CreateProductCategoryRequest;
 import com.tunahan.market.dtos.requests.product.CreateProductRequest;
 import com.tunahan.market.dtos.responses.product.CreateProductResponse;
 import com.tunahan.market.dtos.responses.product.GetAllProductResponse;
@@ -43,5 +44,10 @@ public class ProductController {
 	@PostMapping("add")
 	CreateProductResponse add(@RequestBody CreateProductRequest createRequest) {
 		return productService.add(createRequest);
+	}
+	
+	@PostMapping("addCategoryToProduct")
+	void addCategoryToProduct(@RequestBody CreateProductCategoryRequest request) {
+		productService.addCategoryToProduct(request);
 	}
 }

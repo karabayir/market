@@ -2,6 +2,7 @@ package com.tunahan.market.business.abstracts.product;
 
 import java.util.List;
 
+import com.tunahan.market.dtos.requests.intermediate.CreateProductCategoryRequest;
 import com.tunahan.market.dtos.requests.product.CreateProductRequest;
 import com.tunahan.market.dtos.responses.product.CreateProductResponse;
 import com.tunahan.market.dtos.responses.product.GetAllProductResponse;
@@ -13,7 +14,7 @@ public interface ProductService {
 	GetProductResponse getById(long id);
 	List<GetAllProductResponse> getByName(String name);
 	CreateProductResponse add(CreateProductRequest createRequest);
-	void addCategoryToProduct(long productId, long categoryId);
+	void addCategoryToProduct(CreateProductCategoryRequest request);
 	
 	
 }
