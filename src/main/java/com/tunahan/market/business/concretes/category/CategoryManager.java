@@ -93,7 +93,9 @@ public class CategoryManager implements CategoryService{
 		productCategoryService.add(productCategory);
 	}
 
-	
-	
+	@Override
+	public List<Long> getAllProductsById(long categoryId){
+		return categoryRepository.findAllProductsById(categoryId);
+	}
 	
 }

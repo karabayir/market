@@ -75,5 +75,10 @@ public class ProductManager implements ProductService{
 		productCategoryService.add(productCategory);
 	}
 
+	@Override
+	public List<Long> getAllCategoriesById(long productId) {
+		return productRepository.findAllCategoriesById(productId);
+	}
+
 	
 }

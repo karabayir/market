@@ -51,4 +51,9 @@ public class ProductController {
 	void addCategoryToProduct(@RequestBody CreateProductCategoryRequest request) {
 		productService.addCategoryToProduct(request);
 	}
+	
+	@GetMapping("getAllCategories/{productId}")
+	List<Long> getAllCategoriesById(@PathVariable long productId){
+		return productService.getAllCategoriesById(productId);
+	}
 }

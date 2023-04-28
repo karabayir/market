@@ -15,4 +15,5 @@ public interface CategoryService {
 	GetCategoryResponse getByName(String name);
 	CreateCategoryResponse add(CreateCategoryRequest createRequest); 
 	void addProductToCategory(CreateProductCategoryRequest request);
+	List<Long> getAllProductsById(long categoryId);
 }
