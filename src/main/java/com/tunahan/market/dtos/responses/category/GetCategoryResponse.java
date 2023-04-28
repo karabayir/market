@@ -1,5 +1,6 @@
 package com.tunahan.market.dtos.responses.category;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

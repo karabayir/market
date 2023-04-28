@@ -16,11 +16,11 @@ public class CargoCompanyRules {
 	
 	public void checkIfCargoCompanyExists(long id) {
 		if(!companyRepository.existsById(id))
-			throw new BusinessException(CargoCompanyMessages.notExists);
+			throw new BusinessException(CargoCompanyMessages.Business.notExists);
 	}
 	
 	public void checkIfCargoCompanyExists(String name) {
 		if(!companyRepository.existsByNameIgnoreCase(name))
-			throw new BusinessException(CargoCompanyMessages.notExists);
+			throw new BusinessException(CargoCompanyMessages.Business.notExists);
 	}
 }

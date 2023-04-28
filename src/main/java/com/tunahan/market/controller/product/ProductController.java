@@ -17,6 +17,7 @@ import com.tunahan.market.dtos.responses.product.CreateProductResponse;
 import com.tunahan.market.dtos.responses.product.GetAllProductResponse;
 import com.tunahan.market.dtos.responses.product.GetProductResponse;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -42,7 +43,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("add")
-	CreateProductResponse add(@RequestBody CreateProductRequest createRequest) {
+	CreateProductResponse add(@Valid @RequestBody CreateProductRequest createRequest) {
 		return productService.add(createRequest);
 	}
 	

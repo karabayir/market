@@ -17,6 +17,7 @@ import com.tunahan.market.dtos.responses.category.CreateCategoryResponse;
 import com.tunahan.market.dtos.responses.category.GetAllCategoryResponse;
 import com.tunahan.market.dtos.responses.category.GetCategoryResponse;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -42,7 +43,7 @@ public class CategoryController {
 	}
 	
 	@PostMapping("add")
-	public CreateCategoryResponse add(@RequestBody CreateCategoryRequest createRequest) {
+	public CreateCategoryResponse add(@Valid @RequestBody CreateCategoryRequest createRequest) {
 		return categoryService.add(createRequest);
 	}
 	

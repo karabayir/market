@@ -1,6 +1,23 @@
 package com.tunahan.market.core.messages.category;
 
-public class CategoryMessages {
+import com.tunahan.market.core.constant.category.CategoryConstants;
 
-	public static final String  notExists = "Category not exists";
+public class CategoryMessages  {
+	
+	public static class Business{
+		public static final String  notExists = "Category not exists";
+	}
+	
+	public static class Validation{
+		
+		public static  final String nullCategoryName = "Kategori ismi alanı boş olamaz";
+		
+		public static  final String lengthCategoryName =
+	    "Kategori ismi en az "+CategoryConstants.minLengthName+
+		" en fazla " +CategoryConstants.maxLengthName+
+		" uzunluğunda olmalıdır";
+	}
+
+	
 }
+

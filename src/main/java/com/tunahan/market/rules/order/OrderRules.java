@@ -16,7 +16,7 @@ public class OrderRules {
 	
 	public void checkIfOrderExists(long id) {
 		if(!orderRepository.existsById(id))
-			throw new BusinessException(OrderMessages.notExists);
+			throw new BusinessException(OrderMessages.Business.notExists);
 	}
 
 }

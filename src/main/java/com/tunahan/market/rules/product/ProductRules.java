@@ -16,11 +16,11 @@ public class ProductRules {
 	
 	public void checkIfProductExists(long id) {
 		if(!productRepository.existsById(id))
-			throw new BusinessException(ProductMessages.notExists);
+			throw new BusinessException(ProductMessages.Business.notExists);
 	}
 	
 	public void checkIfProductExists(String name) {
 		if(!productRepository.existsByNameIgnoreCase(name))
-			throw new BusinessException(ProductMessages.notExists);
+			throw new BusinessException(ProductMessages.Business.notExists);
 	}
 }

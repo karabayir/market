@@ -16,11 +16,11 @@ public class CategoryRules {
 	
 	public void checkIfCategoryExists(long id) {
 		if(!categoryRepository.existsById(id))
-			throw new BusinessException(CategoryMessages.notExists);
+			throw new BusinessException(CategoryMessages.Business.notExists);
 	}
 	
 	public void checkIfCategoryExists(String name) {
 		if(!categoryRepository.existsByNameIgnoreCase(name))
-			throw new BusinessException(CategoryMessages.notExists);
+			throw new BusinessException(CategoryMessages.Business.notExists);
 	}
 }

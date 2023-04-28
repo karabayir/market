@@ -16,6 +16,7 @@ import com.tunahan.market.dtos.responses.seller.CreateSellerResponse;
 import com.tunahan.market.dtos.responses.seller.GetAllSellerResponse;
 import com.tunahan.market.dtos.responses.seller.GetSellerResponse;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -41,7 +42,7 @@ public class SellerController {
 	}
 	
 	@PostMapping("add")
-	public CreateSellerResponse add(@RequestBody CreateSellerRequest createRequest) {
+	public CreateSellerResponse add(@Valid @RequestBody CreateSellerRequest createRequest) {
 		return sellerService.add(createRequest);
 	}
 }

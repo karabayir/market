@@ -16,11 +16,11 @@ public class SellerRules {
 	
 	public void checkIfSellerExists(long id) {
 		if(!sellerRepository.existsById(id))
-			throw new BusinessException(SellerMessages.notExists);
+			throw new BusinessException(SellerMessages.Business.notExists);
 	} 
 	
 	public void checkIfSellerExists(String name) {
 		if(!sellerRepository.existsByNameIgnoreCase(name))
-			throw new BusinessException(SellerMessages.notExists);
+			throw new BusinessException(SellerMessages.Business.notExists);
 	}
 }

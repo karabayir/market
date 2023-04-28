@@ -16,6 +16,7 @@ import com.tunahan.market.dtos.responses.category.cargoCompany.CreateCargoCompan
 import com.tunahan.market.dtos.responses.category.cargoCompany.GetAllCargoCompanyReponse;
 import com.tunahan.market.dtos.responses.category.cargoCompany.GetCargoCompanyResponse;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -41,7 +42,7 @@ public class CargoCompanyController {
 	}
 	
 	@PostMapping("add")
-	CreateCargoCompanyResponse add(@RequestBody CreateCargoCompanyRequest createRequest) {
+	CreateCargoCompanyResponse add(@Valid @RequestBody CreateCargoCompanyRequest createRequest) {
 		return companyService.add(createRequest);
 	}
 }
