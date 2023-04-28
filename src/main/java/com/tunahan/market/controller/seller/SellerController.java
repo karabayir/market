@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.seller.SellerService;
+import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.dtos.requests.seller.CreateSellerRequest;
 import com.tunahan.market.dtos.responses.seller.CreateSellerResponse;
 import com.tunahan.market.dtos.responses.seller.GetAllSellerResponse;
@@ -27,22 +28,22 @@ public class SellerController {
 	private final SellerService sellerService;
 	
 	@GetMapping("getAll")
-	public List<GetAllSellerResponse> getAll(){
+	public DataResult<List<GetAllSellerResponse>> getAll(){
 		return sellerService.getAll();
 	}
 	
 	@GetMapping("getById/{id}")
-	public GetSellerResponse getById(@PathVariable long id) {
+	public DataResult<GetSellerResponse> getById(@PathVariable long id) {
 		return sellerService.getById(id);
 	}
 	
 	@GetMapping("getByName")
-	public List<GetSellerResponse> getByName(@RequestParam String name){
+	public DataResult<List<GetSellerResponse>> getByName(@RequestParam String name){
 		return sellerService.getByName(name);
 	}
 	
 	@PostMapping("add")
-	public CreateSellerResponse add(@Valid @RequestBody CreateSellerRequest createRequest) {
+	public DataResult<CreateSellerResponse> add(@Valid @RequestBody CreateSellerRequest createRequest) {
 		return sellerService.add(createRequest);
 	}
 }

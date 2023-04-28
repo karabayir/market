@@ -6,6 +6,7 @@ public class CargoCompanyMessages {
 
 	public static class Business{
 		public static final String  notExists = "Cargo Company not exists";
+		public static final String  alreadyExists = "Cargo Company already exists";
 	}
 	
 	public static class Validation{

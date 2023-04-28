@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.category.CategoryService;
+import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.dtos.requests.category.CreateCategoryRequest;
 import com.tunahan.market.dtos.requests.intermediate.CreateProductCategoryRequest;
 import com.tunahan.market.dtos.responses.category.CreateCategoryResponse;
@@ -28,32 +30,32 @@ public class CategoryController {
 	private final CategoryService categoryService;
 	
 	@GetMapping("getAll")
-	public List<GetAllCategoryResponse> getAll(){
+	public DataResult<List<GetAllCategoryResponse>> getAll(){
 		return categoryService.getAll();
 	}
 	
 	@GetMapping("getById/{id}")
-	public GetCategoryResponse getById(@PathVariable long id) {
+	public DataResult<GetCategoryResponse> getById(@PathVariable long id) {
 		return categoryService.getById(id);
 	}
 	
 	@GetMapping("getByName")
-	public GetCategoryResponse getByName(@RequestParam String name) {
+	public DataResult<GetCategoryResponse> getByName(@RequestParam String name) {
 		return categoryService.getByName(name);
 	}
 	
 	@PostMapping("add")
-	public CreateCategoryResponse add(@Valid @RequestBody CreateCategoryRequest createRequest) {
+	public DataResult<CreateCategoryResponse> add(@Valid @RequestBody CreateCategoryRequest createRequest) {
 		return categoryService.add(createRequest);
 	}
 	
 	@PostMapping("addProductToCategory")
-	public void addProductToCategory(@RequestBody CreateProductCategoryRequest request) {
-		 categoryService.addProductToCategory(request);
+	public Result addProductToCategory(@RequestBody CreateProductCategoryRequest request) {
+		 return categoryService.addProductToCategory(request);
 	}
 	
 	@GetMapping("getAllProducts/{categoryId}")
-	public List<Long> getAllProductsById(@PathVariable long categoryId){
+	public DataResult<List<Long>> getAllProductsById(@PathVariable long categoryId){
 		return categoryService.getAllProductsById(categoryId);
 	}
 }

@@ -23,4 +23,9 @@ public class CargoCompanyRules {
 		if(!companyRepository.existsByNameIgnoreCase(name))
 			throw new BusinessException(CargoCompanyMessages.Business.notExists);
 	}
+	
+	public void checkIfCargoCompanyNameExists(String name) {
+		if(companyRepository.existsByNameIgnoreCase(name))
+			throw new BusinessException(CargoCompanyMessages.Business.alreadyExists);
+	}
 }

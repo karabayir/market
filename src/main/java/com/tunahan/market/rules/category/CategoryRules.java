@@ -23,4 +23,10 @@ public class CategoryRules {
 		if(!categoryRepository.existsByNameIgnoreCase(name))
 			throw new BusinessException(CategoryMessages.Business.notExists);
 	}
+	
+	public void checkIfCategoryNameExists(String name) {
+		if(categoryRepository.existsByNameIgnoreCase(name))
+			throw new BusinessException(CategoryMessages.Business.alreadyExists);
+	}
+	
 }

@@ -10,6 +10,10 @@ import com.tunahan.market.business.abstracts.category.CategoryService;
 import com.tunahan.market.business.abstracts.intermediate.ProductCategoryService;
 import com.tunahan.market.business.abstracts.product.ProductService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
+import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.Result;
+import com.tunahan.market.core.utilities.result.SuccessDataResult;
+import com.tunahan.market.core.utilities.result.SuccessResult;
 import com.tunahan.market.dtos.requests.category.CreateCategoryRequest;
 import com.tunahan.market.dtos.requests.intermediate.CreateProductCategoryRequest;
 import com.tunahan.market.dtos.responses.category.CreateCategoryResponse;
@@ -51,36 +55,41 @@ public class CategoryManager implements CategoryService{
 	}
 
 	@Override
-	public List<GetAllCategoryResponse> getAll() {
-		return categoryRepository.findAll()
+	public DataResult<List<GetAllCategoryResponse>> getAll() {
+		List<GetAllCategoryResponse> result= categoryRepository.findAll()
 				.stream()
 				.map(c -> mapperService.forResponse().map(c, GetAllCategoryResponse.class))
 				.collect(Collectors.toList());
+		return new SuccessDataResult<List<GetAllCategoryResponse>>(result, "getAll");
 	}
 
 	@Override
-	public GetCategoryResponse getById(long id) {
+	public DataResult<GetCategoryResponse> getById(long id) {
 		rules.checkIfCategoryExists(id);
 		Category category = categoryRepository.findById(id).orElseThrow();
-		return mapperService.forResponse().map(category, GetCategoryResponse.class);
+		GetCategoryResponse result= mapperService.forResponse().map(category, GetCategoryResponse.class);
+		return new SuccessDataResult<GetCategoryResponse>(result, "getById");
 	}
 
 	@Override
-	public GetCategoryResponse getByName(String name) {
+	public DataResult<GetCategoryResponse> getByName(String name) {
 		rules.checkIfCategoryExists(name);
 		Category category = categoryRepository.findByName(name).orElseThrow();
-		return mapperService.forResponse().map(category, GetCategoryResponse.class);
+		GetCategoryResponse result= mapperService.forResponse().map(category, GetCategoryResponse.class);
+		return new SuccessDataResult<GetCategoryResponse>(result, "getByName");
 	}
 
 	@Override
-	public CreateCategoryResponse add(CreateCategoryRequest createRequest) {
+	public DataResult<CreateCategoryResponse> add(CreateCategoryRequest createRequest) {
+		rules.checkIfCategoryNameExists(createRequest.getName());
 		Category category = mapperService.forRequest().map(createRequest,Category.class);
 		categoryRepository.save(category);
-		return mapperService.forResponse().map(category, CreateCategoryResponse.class);
+		CreateCategoryResponse result= mapperService.forResponse().map(category, CreateCategoryResponse.class);
+		return new SuccessDataResult<CreateCategoryResponse>(result, "add");
 	}
 
 	@Override
-	public void addProductToCategory(CreateProductCategoryRequest request) {
+	public Result addProductToCategory(CreateProductCategoryRequest request) {
 		rules.checkIfCategoryExists(request.getCategoryId());
 		rulesProduct.checkIfProductExists(request.getProductId());
 		Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow();
@@ -91,11 +100,14 @@ public class CategoryManager implements CategoryService{
 		category.getProductCategoryList().add(productCategory);
 		categoryRepository.save(category);
 		productCategoryService.add(productCategory);
+		return new SuccessResult("addProductToCategory");
 	}
 
 	@Override
-	public List<Long> getAllProductsById(long categoryId){
-		return categoryRepository.findAllProductsById(categoryId);
+	public DataResult<List<Long>> getAllProductsById(long categoryId){
+		rules.checkIfCategoryExists(categoryId);
+		List<Long> result= categoryRepository.findAllProductsById(categoryId);
+		return new SuccessDataResult<List<Long>>(result, "getAllProductsById");
 	}
 	
 }

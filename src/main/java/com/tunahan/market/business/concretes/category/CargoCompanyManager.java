@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.category.CargoCompanyService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
+import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.SuccessDataResult;
 import com.tunahan.market.dtos.requests.category.cargoCompany.CreateCargoCompanyRequest;
 import com.tunahan.market.dtos.responses.category.cargoCompany.CreateCargoCompanyResponse;
 import com.tunahan.market.dtos.responses.category.cargoCompany.GetAllCargoCompanyReponse;
@@ -26,32 +28,37 @@ public class CargoCompanyManager implements CargoCompanyService{
 	private final CargoCompanyRules rules;
 	
 	@Override
-	public List<GetAllCargoCompanyReponse> getAll() {
-		return companyRepository.findAll()
+	public DataResult<List<GetAllCargoCompanyReponse>> getAll() {
+		List<GetAllCargoCompanyReponse> result = companyRepository.findAll()
 				.stream()
 				.map(c -> mapperService.forResponse().map(c, GetAllCargoCompanyReponse.class))
 				.collect(Collectors.toList());
+		return new SuccessDataResult<List<GetAllCargoCompanyReponse>>(result, "getAll");
 	}
 
 	@Override
-	public GetCargoCompanyResponse getById(long id) {
+	public DataResult<GetCargoCompanyResponse> getById(long id) {
 		rules.checkIfCargoCompanyExists(id);
 		CargoCompany company = companyRepository.findById(id).orElseThrow();
-		return mapperService.forResponse().map(company, GetCargoCompanyResponse.class);
+		GetCargoCompanyResponse result= mapperService.forResponse().map(company, GetCargoCompanyResponse.class);
+		return new SuccessDataResult<GetCargoCompanyResponse>(result, "getById");
 	}
 
 	@Override
-	public GetCargoCompanyResponse getByName(String name) {
+	public DataResult<GetCargoCompanyResponse> getByName(String name) {
 		rules.checkIfCargoCompanyExists(name);
 		CargoCompany company = companyRepository.findByName(name).orElseThrow();
-		return mapperService.forResponse().map(company, GetCargoCompanyResponse.class);
+		GetCargoCompanyResponse result= mapperService.forResponse().map(company, GetCargoCompanyResponse.class);
+		return new SuccessDataResult<GetCargoCompanyResponse>(result, "getByName");
 	}
 
 	@Override
-	public CreateCargoCompanyResponse add(CreateCargoCompanyRequest createRequest) {
+	public DataResult<CreateCargoCompanyResponse>  add(CreateCargoCompanyRequest createRequest) {
+		rules.checkIfCargoCompanyNameExists(createRequest.getName());
 		CargoCompany company = mapperService.forRequest().map(createRequest, CargoCompany.class);
 		companyRepository.save(company);
-		return mapperService.forResponse().map(company, CreateCargoCompanyResponse.class);
+		CreateCargoCompanyResponse result= mapperService.forResponse().map(company, CreateCargoCompanyResponse.class);
+		return new SuccessDataResult<CreateCargoCompanyResponse>(result, "add");
 	}
 
 }

@@ -6,6 +6,7 @@ public class CategoryMessages  {
 	
 	public static class Business{
 		public static final String  notExists = "Category not exists";
+		public static final String  alreadyExists = "Category already exists";
 	}
 	
 	public static class Validation{

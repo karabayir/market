@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.seller.SellerService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
+import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.SuccessDataResult;
 import com.tunahan.market.dtos.requests.seller.CreateSellerRequest;
 import com.tunahan.market.dtos.responses.seller.CreateSellerResponse;
 import com.tunahan.market.dtos.responses.seller.GetAllSellerResponse;
@@ -26,34 +28,38 @@ public class SellerManager implements SellerService{
 	private final SellerRules rules;
 	
 	@Override
-	public List<GetAllSellerResponse> getAll() {
-		return sellerRepository.findAll()
+	public DataResult<List<GetAllSellerResponse>> getAll() {
+		List<GetAllSellerResponse> result= sellerRepository.findAll()
 				.stream()
 				.map(s -> mapperService.forResponse().map(s, GetAllSellerResponse.class))
 				.collect(Collectors.toList());
+		return new SuccessDataResult<List<GetAllSellerResponse>>(result, "getAll");
 	}
 
 	@Override
-	public GetSellerResponse getById(long id) {
+	public DataResult<GetSellerResponse> getById(long id) {
 		rules.checkIfSellerExists(id);
 		Seller seller = sellerRepository.findById(id).orElseThrow();
-		return mapperService.forResponse().map(seller, GetSellerResponse.class);
+		GetSellerResponse result= mapperService.forResponse().map(seller, GetSellerResponse.class);
+		return new SuccessDataResult<GetSellerResponse>(result, "getById");
 	}
 
 	@Override
-	public List<GetSellerResponse> getByName(String name) {
+	public DataResult<List<GetSellerResponse>> getByName(String name) {
 		rules.checkIfSellerExists(name);
-		return sellerRepository.findByName(name)
+		List<GetSellerResponse> result= sellerRepository.findByName(name)
 				.stream()
 				.map(s -> mapperService.forResponse().map(s, GetSellerResponse.class))
 				.collect(Collectors.toList());
+		return new SuccessDataResult<List<GetSellerResponse>>(result, "getByName");
 	}
 
 	@Override
-	public CreateSellerResponse add(CreateSellerRequest createRequest) {
+	public DataResult<CreateSellerResponse> add(CreateSellerRequest createRequest) {
 		Seller  seller = mapperService.forRequest().map(createRequest, Seller.class);
 		sellerRepository.save(seller);
-		return mapperService.forResponse().map(seller, CreateSellerResponse.class);
+		CreateSellerResponse result= mapperService.forResponse().map(seller, CreateSellerResponse.class);
+		return new SuccessDataResult<CreateSellerResponse>(result, "add");
 	}
 
 }

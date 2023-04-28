@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.order.OrderService;
+import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.dtos.requests.order.CreateOrderRequest;
 import com.tunahan.market.dtos.responses.order.CreateOrderResponse;
 import com.tunahan.market.dtos.responses.order.GetAllOrderResponse;
@@ -25,17 +26,17 @@ public class OrderController {
 	private final OrderService orderService;
 	
 	@GetMapping("getAll")
-	public List<GetAllOrderResponse> getAll(){
+	public DataResult<List<GetAllOrderResponse>> getAll(){
 		return orderService.getAll();
 	}
 	
 	@GetMapping("getById/{id}")
-	GetOrderResponse getById(@PathVariable long id) {
+	public DataResult<GetOrderResponse> getById(@PathVariable long id) {
 		return orderService.getById(id);
 	}
 	
 	@PostMapping("add")
-	CreateOrderResponse add(@RequestBody CreateOrderRequest createRequest) {
+	public DataResult<CreateOrderResponse> add(@RequestBody CreateOrderRequest createRequest) {
 		return orderService.add(createRequest);
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.category.CargoCompanyService;
+import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.dtos.requests.category.cargoCompany.CreateCargoCompanyRequest;
 import com.tunahan.market.dtos.responses.category.cargoCompany.CreateCargoCompanyResponse;
 import com.tunahan.market.dtos.responses.category.cargoCompany.GetAllCargoCompanyReponse;
@@ -27,22 +28,22 @@ public class CargoCompanyController {
 	private final CargoCompanyService companyService;
 	
 	@GetMapping("getAll")
-	public List<GetAllCargoCompanyReponse> getAll(){
+	public DataResult<List<GetAllCargoCompanyReponse>> getAll(){
 		return companyService.getAll();
 	}
 	
 	@GetMapping("getById/{id}")
-	public GetCargoCompanyResponse getById(@PathVariable long id) {
+	public DataResult<GetCargoCompanyResponse> getById(@PathVariable long id) {
 		return companyService.getById(id);
 	}
 	
 	@GetMapping("getByName")
-	GetCargoCompanyResponse getByName(@RequestParam String name) {
+	public DataResult<GetCargoCompanyResponse> getByName(@RequestParam String name) {
 		return companyService.getByName(name);
 	}
 	
 	@PostMapping("add")
-	CreateCargoCompanyResponse add(@Valid @RequestBody CreateCargoCompanyRequest createRequest) {
+	public DataResult<CreateCargoCompanyResponse> add(@Valid @RequestBody CreateCargoCompanyRequest createRequest) {
 		return companyService.add(createRequest);
 	}
 }
