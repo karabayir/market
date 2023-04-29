@@ -1,5 +1,5 @@
 package com.tunahan.market.entities.order;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.tunahan.market.entities.customer.Customer;
@@ -41,6 +41,6 @@ public class Order {
 	private List<Installment> installmentList;
 	
 	
-	private Date date;
+	private LocalDate date;
 	private double totalPrice;
 }

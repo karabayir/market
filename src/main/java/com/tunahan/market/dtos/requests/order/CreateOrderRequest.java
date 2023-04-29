@@ -1,9 +1,8 @@
 package com.tunahan.market.dtos.requests.order;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tunahan.market.core.messages.order.OrderMessages;
 
 import jakarta.validation.constraints.NotNull;
@@ -26,8 +25,8 @@ public class CreateOrderRequest{
 	private long productId;
 	
 	@NotNull(message = OrderMessages.Validation.nullOrderDate)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date date;
+	@JsonFormat(pattern = "dd.MM.yyyy")
+	private LocalDate date;
 	
 	@Positive(message = OrderMessages.Validation.minUnitPrice)
 	private double totalPrice;

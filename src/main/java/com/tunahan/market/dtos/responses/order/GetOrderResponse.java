@@ -1,6 +1,6 @@
 package com.tunahan.market.dtos.responses.order;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.tunahan.market.entities.preOrder.Installment;
@@ -19,7 +19,7 @@ public class GetOrderResponse{
 	private long id;
 	private long customerId;
 	private long productId;
-	private Date date;
+	private LocalDate date;
 	private double totalPrice;
 	private List<Installment> installmentList;
 }

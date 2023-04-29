@@ -1,0 +1,65 @@
+package com.tunahan.market.business.concretes.customer;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.tunahan.market.business.abstracts.customer.CorporateCustomerService;
+import com.tunahan.market.core.utilities.mapping.ModelMapperService;
+import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.SuccessDataResult;
+import com.tunahan.market.dtos.requests.customer.CreateCorporateCustomerRequest;
+import com.tunahan.market.dtos.responses.customer.corporate.CreateCorporateCustomerResponse;
+import com.tunahan.market.dtos.responses.customer.corporate.GetAllCorporateCustomerResponse;
+import com.tunahan.market.dtos.responses.customer.corporate.GetCorporateCustomerResponse;
+import com.tunahan.market.entities.customer.CorporateCustomer;
+import com.tunahan.market.repository.customer.CorporateCustomerRepository;
+
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public class CorporateCustomerManager implements CorporateCustomerService{
+
+	private final CorporateCustomerRepository repository;
+	private final ModelMapperService mapperService;
+	
+	
+	@Override
+	public DataResult<List<GetAllCorporateCustomerResponse>> getAll() {
+		List<GetAllCorporateCustomerResponse> result = repository.findAll()
+				.stream()
+				.map(cc -> mapperService.forResponse().map(cc, GetAllCorporateCustomerResponse.class))
+				.collect(Collectors.toList());
+		return new SuccessDataResult<List<GetAllCorporateCustomerResponse>>(result, "getAll");
+	}
+	@Override
+	public DataResult<GetCorporateCustomerResponse> getById(long id) {
+		CorporateCustomer customer = repository.findById(id).orElseThrow();
+		GetCorporateCustomerResponse result= mapperService.forResponse().map(customer, GetCorporateCustomerResponse.class);
+		return new SuccessDataResult<GetCorporateCustomerResponse>(result, "getById");
+	}
+	@Override
+	public DataResult<List<GetCorporateCustomerResponse>> getByName(String name) {
+		List<CorporateCustomer> customers = repository.findByName(name).orElseThrow();
+		List<GetCorporateCustomerResponse> result = customers
+				.stream()
+				.map(cc-> mapperService.forResponse().map(cc, GetCorporateCustomerResponse.class))
+				.collect(Collectors.toList());
+		return new SuccessDataResult<List<GetCorporateCustomerResponse>>(result, "getByName");
+	}
+	@Override
+	public DataResult<GetCorporateCustomerResponse> getByTaxNumber(String taxNumber) {
+		CorporateCustomer customer= repository.findByTaxNumber(taxNumber).orElseThrow();
+		GetCorporateCustomerResponse result = mapperService.forResponse().map(customer, GetCorporateCustomerResponse.class);
+		return new SuccessDataResult<GetCorporateCustomerResponse>(result, "getByTaxNumber");
+	}
+	@Override
+	public DataResult<CreateCorporateCustomerResponse> add(CreateCorporateCustomerRequest request) {
+		CorporateCustomer customer = mapperService.forRequest().map(request, CorporateCustomer.class);
+		repository.save(customer);
+		CreateCorporateCustomerResponse result = mapperService.forResponse().map(customer, CreateCorporateCustomerResponse.class);
+		return new SuccessDataResult<CreateCorporateCustomerResponse>(result, "add");
+	}
+}

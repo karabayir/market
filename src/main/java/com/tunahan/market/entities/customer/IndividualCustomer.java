@@ -1,6 +1,7 @@
 package com.tunahan.market.entities.customer;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -15,10 +16,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class IndividualCustomers extends Customer{
+public class IndividualCustomer extends Customer{
 
 	private String TCKN;
 	private String firstName;
 	private String lastName;
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 }

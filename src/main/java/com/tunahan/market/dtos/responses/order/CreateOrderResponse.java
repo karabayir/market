@@ -1,6 +1,6 @@
 package com.tunahan.market.dtos.responses.order;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +16,6 @@ public class CreateOrderResponse{
 	private long id;
 	private long customerId;
 	private long productId;
-	private Date date;
+	private LocalDate date;
 	private double totalPrice;
 }
