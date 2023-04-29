@@ -15,6 +15,7 @@ import com.tunahan.market.dtos.responses.order.GetAllOrderResponse;
 import com.tunahan.market.dtos.responses.order.GetOrderResponse;
 import com.tunahan.market.entities.order.Order;
 import com.tunahan.market.repository.order.OrderRepository;
+import com.tunahan.market.rules.customer.CustomerRules;
 import com.tunahan.market.rules.order.OrderRules;
 import com.tunahan.market.rules.product.ProductRules;
 
@@ -28,7 +29,7 @@ public class OrderManager implements OrderService{
 	private final ModelMapperService mapperService;
 	private final OrderRules rules;
 	private final ProductRules productRules;
-    //private final CustomerRules customerRules;	
+    private final CustomerRules customerRules;	
 	
 	@Override
 	public DataResult<List<GetAllOrderResponse>> getAll() {
@@ -50,7 +51,7 @@ public class OrderManager implements OrderService{
 	@Override
 	public DataResult<CreateOrderResponse> add(CreateOrderRequest createRequest) {
 		productRules.checkIfProductExists(createRequest.getProductId());
-		//customerRules.checkIfCustomerExists(createRequest.getCustomerId());
+		customerRules.checkIfCustomerExists(createRequest.getCustomerId());
 		Order order = mapperService.forRequest().map(createRequest, Order.class);
 		order.setId(0);
 		orderRepository.save(order);
