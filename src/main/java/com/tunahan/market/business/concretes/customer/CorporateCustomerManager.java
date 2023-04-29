@@ -15,6 +15,7 @@ import com.tunahan.market.dtos.responses.customer.corporate.GetAllCorporateCusto
 import com.tunahan.market.dtos.responses.customer.corporate.GetCorporateCustomerResponse;
 import com.tunahan.market.entities.customer.CorporateCustomer;
 import com.tunahan.market.repository.customer.CorporateCustomerRepository;
+import com.tunahan.market.rules.customer.CorporateCustomerRules;
 
 import lombok.AllArgsConstructor;
 
@@ -24,6 +25,7 @@ public class CorporateCustomerManager implements CorporateCustomerService{
 
 	private final CorporateCustomerRepository repository;
 	private final ModelMapperService mapperService;
+	private final CorporateCustomerRules rules;
 	
 	
 	@Override
@@ -36,13 +38,15 @@ public class CorporateCustomerManager implements CorporateCustomerService{
 	}
 	@Override
 	public DataResult<GetCorporateCustomerResponse> getById(long id) {
+		rules.checkIfCorporateCustomerExists(id);
 		CorporateCustomer customer = repository.findById(id).orElseThrow();
 		GetCorporateCustomerResponse result= mapperService.forResponse().map(customer, GetCorporateCustomerResponse.class);
 		return new SuccessDataResult<GetCorporateCustomerResponse>(result, "getById");
 	}
 	@Override
 	public DataResult<List<GetCorporateCustomerResponse>> getByName(String name) {
-		List<CorporateCustomer> customers = repository.findByName(name).orElseThrow();
+		rules.checkIfCorporateCustomerExists(name);
+		List<CorporateCustomer> customers = repository.findByNameIgnoreCase(name).orElseThrow();
 		List<GetCorporateCustomerResponse> result = customers
 				.stream()
 				.map(cc-> mapperService.forResponse().map(cc, GetCorporateCustomerResponse.class))
@@ -51,12 +55,14 @@ public class CorporateCustomerManager implements CorporateCustomerService{
 	}
 	@Override
 	public DataResult<GetCorporateCustomerResponse> getByTaxNumber(String taxNumber) {
+		rules.checkIfCorporateCustomerTaxNumberExists(taxNumber);
 		CorporateCustomer customer= repository.findByTaxNumber(taxNumber).orElseThrow();
 		GetCorporateCustomerResponse result = mapperService.forResponse().map(customer, GetCorporateCustomerResponse.class);
 		return new SuccessDataResult<GetCorporateCustomerResponse>(result, "getByTaxNumber");
 	}
 	@Override
 	public DataResult<CreateCorporateCustomerResponse> add(CreateCorporateCustomerRequest request) {
+		rules.checkIfTaxNumberForAdd(request.getTaxNumber());
 		CorporateCustomer customer = mapperService.forRequest().map(request, CorporateCustomer.class);
 		repository.save(customer);
 		CreateCorporateCustomerResponse result = mapperService.forResponse().map(customer, CreateCorporateCustomerResponse.class);

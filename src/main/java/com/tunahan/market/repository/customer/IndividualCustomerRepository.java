@@ -10,5 +10,7 @@ import com.tunahan.market.entities.customer.IndividualCustomer;
 public interface IndividualCustomerRepository extends JpaRepository<IndividualCustomer, Long>{
 
 	Optional<IndividualCustomer> findByTCKN(String TCKN);
-	Optional<List<IndividualCustomer>> findByFirstName(String firstName);
+	Optional<List<IndividualCustomer>> findByFirstNameIgnoreCase(String firstName);
+	boolean existsByFirstName(String firstName);
+	boolean existsByTCKN(String TCKN);
 }

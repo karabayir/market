@@ -10,5 +10,7 @@ import com.tunahan.market.entities.customer.CorporateCustomer;
 public interface CorporateCustomerRepository extends JpaRepository<CorporateCustomer, Long>{
 
 	Optional<CorporateCustomer> findByTaxNumber(String taxNumber);
-	Optional<List<CorporateCustomer>> findByName(String name);
+	Optional<List<CorporateCustomer>> findByNameIgnoreCase(String name);
+	boolean existsByNameIgnoreCase(String name);
+	boolean existsByTaxNumber(String taxNumber);
 }

@@ -15,6 +15,7 @@ import com.tunahan.market.dtos.responses.customer.individual.GetAllIndividualCus
 import com.tunahan.market.dtos.responses.customer.individual.GetIndividualCustomerResponse;
 import com.tunahan.market.entities.customer.IndividualCustomer;
 import com.tunahan.market.repository.customer.IndividualCustomerRepository;
+import com.tunahan.market.rules.customer.IndividualCustomerRules;
 
 import lombok.AllArgsConstructor;
 
@@ -24,6 +25,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 	
 	private final IndividualCustomerRepository repository;
 	private final ModelMapperService mapperService;
+	private final IndividualCustomerRules rules;
 
 	@Override
 	public DataResult<List<GetAllIndividualCustomerResponse>> getAll() {
@@ -36,6 +38,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 
 	@Override
 	public DataResult<GetIndividualCustomerResponse> getById(long id) {
+		rules.checkIfIndividualCustomerExists(id);
 		IndividualCustomer customer = repository.findById(id).orElseThrow();
 		GetIndividualCustomerResponse result = mapperService.forResponse().map(customer, GetIndividualCustomerResponse.class);
 		return new SuccessDataResult<GetIndividualCustomerResponse>(result, "getById");
@@ -43,6 +46,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 
 	@Override
 	public DataResult<GetIndividualCustomerResponse> getByTCKN(String TCKN) {
+		rules.checkIfIndividualCustomerTCKNExists(TCKN);
 		IndividualCustomer customer= repository.findByTCKN(TCKN).orElseThrow();
 		GetIndividualCustomerResponse result = mapperService.forResponse().map(customer, GetIndividualCustomerResponse.class);
 		return new SuccessDataResult<GetIndividualCustomerResponse>(result, "getByTCKN");
@@ -50,7 +54,8 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 
 	@Override
 	public DataResult<List<GetIndividualCustomerResponse>> getByName(String name) {
-		List<IndividualCustomer> customers= repository.findByFirstName(name).orElseThrow();
+		rules.checkIfIndividualCustomerExists(name);
+		List<IndividualCustomer> customers= repository.findByFirstNameIgnoreCase(name).orElseThrow();
 		List<GetIndividualCustomerResponse> result = customers
 				.stream()
 				.map(c -> mapperService.forResponse().map(c, GetIndividualCustomerResponse.class))
@@ -60,6 +65,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 
 	@Override
 	public DataResult<CreateIndividualCustomerResponse> add(CreateIndividualCustomerRequest request) {
+		rules.checkIfTCKNForAdd(request.getTCKN());
 		IndividualCustomer customer = mapperService.forRequest().map(request, IndividualCustomer.class);
 		repository.save(customer);
 		CreateIndividualCustomerResponse result = mapperService.forResponse().map(customer, CreateIndividualCustomerResponse.class);

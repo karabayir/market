@@ -16,6 +16,7 @@ import com.tunahan.market.dtos.responses.order.CreateOrderResponse;
 import com.tunahan.market.dtos.responses.order.GetAllOrderResponse;
 import com.tunahan.market.dtos.responses.order.GetOrderResponse;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -36,7 +37,7 @@ public class OrderController {
 	}
 	
 	@PostMapping("add")
-	public DataResult<CreateOrderResponse> add(@RequestBody CreateOrderRequest createRequest) {
+	public DataResult<CreateOrderResponse> add(@Valid @RequestBody CreateOrderRequest createRequest) {
 		return orderService.add(createRequest);
 	}
 }
