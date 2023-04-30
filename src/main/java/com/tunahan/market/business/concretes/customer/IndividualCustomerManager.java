@@ -65,7 +65,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 
 	@Override
 	public DataResult<CreateIndividualCustomerResponse> add(CreateIndividualCustomerRequest request) {
-		rules.checkIfTCKNForAdd(request.getTCKN());
+		rules.checkIfIndividualCustomerTCKNForAdd(request.getTCKN());
 		IndividualCustomer customer = mapperService.forRequest().map(request, IndividualCustomer.class);
 		repository.save(customer);
 		CreateIndividualCustomerResponse result = mapperService.forResponse().map(customer, CreateIndividualCustomerResponse.class);

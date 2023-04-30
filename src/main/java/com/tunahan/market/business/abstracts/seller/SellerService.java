@@ -12,6 +12,7 @@ public interface SellerService {
 
 	DataResult<List<GetAllSellerResponse>> getAll();
 	DataResult<GetSellerResponse> getById(long id);
+	DataResult<GetSellerResponse> getByTaxNumber(String number);
 	DataResult<List<GetSellerResponse>> getByName(String name);
 	DataResult<CreateSellerResponse> add(CreateSellerRequest createRequest);
 }

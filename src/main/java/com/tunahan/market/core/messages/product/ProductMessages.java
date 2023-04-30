@@ -8,7 +8,6 @@ public class ProductMessages {
 		public static final String  notExists = "Product not exists";
 	}
 	
-	
 	public static class Validation{
 		
 		public static  final String nullProductName = "Ürün ismi alanı boş olamaz";

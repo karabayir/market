@@ -31,7 +31,6 @@ public class CreateProductRequest{
 			message = ProductMessages.Validation.lengthDescription)
 	private String description;
 	
-	@NotNull
 	private String image;
 	
 	@Min(

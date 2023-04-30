@@ -42,6 +42,11 @@ public class SellerController {
 		return sellerService.getByName(name);
 	}
 	
+	@GetMapping("getByTaxNumber")
+	public DataResult<GetSellerResponse> getByTaxNumber(@RequestParam String number){
+		return sellerService.getByTaxNumber(number);
+	}
+	
 	@PostMapping("add")
 	public DataResult<CreateSellerResponse> add(@Valid @RequestBody CreateSellerRequest createRequest) {
 		return sellerService.add(createRequest);

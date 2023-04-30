@@ -53,13 +53,23 @@ public class SellerManager implements SellerService{
 				.collect(Collectors.toList());
 		return new SuccessDataResult<List<GetSellerResponse>>(result, "getByName");
 	}
+	
+	@Override
+	public DataResult<GetSellerResponse> getByTaxNumber(String number) {
+		rules.checkIfSellerTaxNumberExists(number);
+		Seller seller = sellerRepository.findByTaxNumber(number).orElseThrow();
+		GetSellerResponse result = mapperService.forResponse().map(seller, GetSellerResponse.class);
+		return new SuccessDataResult<GetSellerResponse>(result, "getByTaxNumber");
+	}
 
 	@Override
 	public DataResult<CreateSellerResponse> add(CreateSellerRequest createRequest) {
+		rules.checkIfSellerTaxNumberForAdd(createRequest.getTaxNumber());
 		Seller  seller = mapperService.forRequest().map(createRequest, Seller.class);
 		sellerRepository.save(seller);
 		CreateSellerResponse result= mapperService.forResponse().map(seller, CreateSellerResponse.class);
 		return new SuccessDataResult<CreateSellerResponse>(result, "add");
 	}
+
 
 }

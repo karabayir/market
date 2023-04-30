@@ -29,7 +29,7 @@ public class IndividualCustomerRules {
 			throw new BusinessException(TCKN+IndividualCustomerMessages.Business.notExists);
 	}
 	
-	public void checkIfTCKNForAdd(String TCKN) {
+	public void checkIfIndividualCustomerTCKNForAdd(String TCKN) {
 		if(repository.existsByTCKN(TCKN))
 			throw new BusinessException(TCKN+IndividualCustomerMessages.Business.alreadyExistsTCKN);
 	}

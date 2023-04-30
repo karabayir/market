@@ -22,14 +22,16 @@ public class CreateSellerRequest{
 	@NotNull(message = SellerMessages.Validation.nullSellerTaxNumber)
 	@Length(
 			min = SellerConstants.minLengthSellerTaxNumber,
-			max = SellerConstants.maxLengthSellerTaxNumber)
+			max = SellerConstants.maxLengthSellerTaxNumber,
+			message = SellerMessages.Validation.lengthSellerTaxNumber)
 	@Pattern(regexp = "\\S+")
 	private String taxNumber;
 	
 	@NotNull(message = SellerMessages.Validation.nullSellerName)
 	@Length(
 			min = SellerConstants.minLengthSellerName,
-			max = SellerConstants.maxLengthSellerName)
+			max = SellerConstants.maxLengthSellerName,
+			message = SellerMessages.Validation.lengthSellerName)
 	private String name;
 	
 	@NotNull(message = SellerMessages.Validation.nullSellerMail)
@@ -39,13 +41,15 @@ public class CreateSellerRequest{
 	@NotNull(message = SellerMessages.Validation.nullSellerAddress)
 	@Length(
 			min = SellerConstants.minLengthSellerAddress,
-			max = SellerConstants.maxLengthSellerAddress)
+			max = SellerConstants.maxLengthSellerAddress,
+			message = SellerMessages.Validation.lengthSelerAddress)
 	private String address;
 	
 	@NotNull(message = SellerMessages.Validation.nullSellerPhone)
 	@Length(
 			min=SellerConstants.minLengthPhone, 
-			max = SellerConstants.maxLengthPhone)
+			max = SellerConstants.maxLengthPhone,
+			message = SellerMessages.Validation.lengthSelerPhone)
 	@Pattern(regexp = "\\S+")
 	private String phone;
 }
