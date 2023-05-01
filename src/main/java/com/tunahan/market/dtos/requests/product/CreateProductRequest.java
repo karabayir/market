@@ -7,6 +7,7 @@ import com.tunahan.market.core.messages.product.ProductMessages;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateProductRequest{
+	
+	@Positive
+	private long categoryId;
+	
+	@Positive
+	private long colorId;
+	
+	@Positive
+	private long sizeId;
+	
+	@Positive
+	private long sellerId;
 	
 	@NotNull
 	@Length(

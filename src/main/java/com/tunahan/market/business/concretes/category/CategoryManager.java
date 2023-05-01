@@ -9,9 +9,11 @@ import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.SuccessDataResult;
 import com.tunahan.market.dtos.requests.category.CreateCategoryRequest;
+import com.tunahan.market.dtos.requests.category.UpdateCategoryRequest;
 import com.tunahan.market.dtos.responses.category.CreateCategoryResponse;
 import com.tunahan.market.dtos.responses.category.GetAllCategoryResponse;
 import com.tunahan.market.dtos.responses.category.GetCategoryResponse;
+import com.tunahan.market.dtos.responses.category.UpdateCategoryResponse;
 import com.tunahan.market.entities.category.Category;
 import com.tunahan.market.repository.category.CategoryRepository;
 import com.tunahan.market.rules.category.CategoryRules;
@@ -52,12 +54,20 @@ public class CategoryManager implements CategoryService{
 	}
 
 	@Override
-	public DataResult<CreateCategoryResponse> add(CreateCategoryRequest createRequest) {
-		rules.checkIfCategoryNameExists(createRequest.getName());
-		Category category = mapperService.forRequest().map(createRequest,Category.class);
+	public DataResult<CreateCategoryResponse> add(CreateCategoryRequest request) {
+		rules.checkIfCategoryNameExists(request.getName());
+		Category category = mapperService.forRequest().map(request,Category.class);
 		categoryRepository.save(category);
 		CreateCategoryResponse result= mapperService.forResponse().map(category, CreateCategoryResponse.class);
 		return new SuccessDataResult<CreateCategoryResponse>(result, "add");
+	}
+
+	@Override
+	public DataResult<UpdateCategoryResponse> update(UpdateCategoryRequest request) {
+		Category category = mapperService.forRequest().map(request, Category.class);
+		categoryRepository.save(category);
+		UpdateCategoryResponse result = mapperService.forResponse().map(category, UpdateCategoryResponse.class);
+		return new SuccessDataResult<UpdateCategoryResponse>(result, "update");
 	}
 	
 }

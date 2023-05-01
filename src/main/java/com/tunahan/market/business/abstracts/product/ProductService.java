@@ -4,15 +4,17 @@ import java.util.List;
 
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.dtos.requests.product.CreateProductRequest;
+import com.tunahan.market.dtos.requests.product.UpdateProductRequest;
 import com.tunahan.market.dtos.responses.product.CreateProductResponse;
 import com.tunahan.market.dtos.responses.product.GetAllProductResponse;
 import com.tunahan.market.dtos.responses.product.GetProductResponse;
+import com.tunahan.market.dtos.responses.product.UpdateProductResponse;
 
 public interface ProductService {
 
 	DataResult<List<GetAllProductResponse>> getAll();
 	DataResult<GetProductResponse> getById(long id);
 	DataResult<List<GetAllProductResponse>> getByName(String name);
-	DataResult<CreateProductResponse> add(CreateProductRequest createRequest);
-	
+	DataResult<CreateProductResponse> add(CreateProductRequest request);
+	DataResult<UpdateProductResponse> update(UpdateProductRequest request);
 }

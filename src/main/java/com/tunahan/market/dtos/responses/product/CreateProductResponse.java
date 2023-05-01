@@ -12,6 +12,10 @@ import lombok.Setter;
 public class CreateProductResponse{
 
 	private long id; 
+	private long categoryId;
+	private long colorId;
+	private long sizeId;
+	private long sellerId;
 	private String name;
 	private String description;
 	private String image;
