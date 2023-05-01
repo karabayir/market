@@ -67,6 +67,7 @@ public class ProductManager implements ProductService{
 
 	@Override
 	public DataResult<UpdateProductResponse> update(UpdateProductRequest request) {
+		rules.checkIfProductExists(request.getId());
 		Product product = mapperService.forRequest().map(request, Product.class);
 		productRepository.save(product);	
 		UpdateProductResponse result = mapperService.forResponse().map(product, UpdateProductResponse.class);

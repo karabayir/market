@@ -64,6 +64,7 @@ public class CategoryManager implements CategoryService{
 
 	@Override
 	public DataResult<UpdateCategoryResponse> update(UpdateCategoryRequest request) {
+		rules.checkIfCategoryExists(request.getId());
 		Category category = mapperService.forRequest().map(request, Category.class);
 		categoryRepository.save(category);
 		UpdateCategoryResponse result = mapperService.forResponse().map(category, UpdateCategoryResponse.class);

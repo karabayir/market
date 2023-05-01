@@ -5,7 +5,7 @@ import com.tunahan.market.core.constant.category.CategoryConstants;
 public class CategoryMessages  {
 	
 	public static class Business{
-		public static final String  notExists = "Category not exists";
+		public static final String  notExists = "category.not.exists";
 		public static final String  alreadyExists = "Category already exists";
 	}
 	
