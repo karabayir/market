@@ -2,7 +2,7 @@ package com.tunahan.market.entities.seller;
 
 import java.util.List;
 
-import com.tunahan.market.entities.intermediate.ProductSeller;
+import com.tunahan.market.entities.product.Product;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +32,6 @@ public class Seller {
 	private String phone;
 	
 	@OneToMany(mappedBy ="seller")
-	private List<ProductSeller> productSellerList;
+	private List<Product> productList;
 	
 }

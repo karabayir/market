@@ -2,7 +2,7 @@ package com.tunahan.market.entities.feature;
 
 import java.util.List;
 
-import com.tunahan.market.entities.intermediate.ProductColor;
+import com.tunahan.market.entities.product.Product;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -19,5 +19,5 @@ import lombok.Setter;
 public class Color extends BaseFeature{
 
 	@OneToMany(mappedBy = "color")
-	private List<ProductColor> productColorList;
+	private List<Product> productList;
 }

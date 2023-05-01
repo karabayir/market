@@ -1,4 +1,4 @@
-package com.tunahan.market.dtos.responses.intermediate;
+package com.tunahan.market.dtos.responses.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllProductCategoryResponse{
+public class UpdateCategoryResponse {
 
 	private long id;
-	private long productId;
-	private long categoryId;
+	private String name;
 }

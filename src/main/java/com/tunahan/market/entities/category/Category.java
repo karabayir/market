@@ -2,7 +2,7 @@ package com.tunahan.market.entities.category;
 
 import java.util.List;
 
-import com.tunahan.market.entities.intermediate.ProductCategory;
+import com.tunahan.market.entities.product.Product;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -19,5 +19,5 @@ import lombok.Setter;
 public class Category extends BaseCategory{
 	
 	@OneToMany(mappedBy = "category")
-	private List<ProductCategory> productCategoryList;
+	private List<Product> productList;
 }
