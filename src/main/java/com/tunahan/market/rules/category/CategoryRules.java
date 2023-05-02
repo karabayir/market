@@ -9,29 +9,31 @@ import org.springframework.stereotype.Service;
 import com.tunahan.market.core.exceptions.BusinessException;
 import com.tunahan.market.core.messages.category.CategoryMessages;
 import com.tunahan.market.repository.category.CategoryRepository;
-
-import lombok.AllArgsConstructor;
+import com.tunahan.market.rules.BaseRules;
 
 @Service
-@AllArgsConstructor
-public class CategoryRules {
+public class CategoryRules extends BaseRules{
 
 	private final CategoryRepository categoryRepository;
-	private final MessageSource messageSource;
-	
+
+	public CategoryRules(MessageSource messageSource, CategoryRepository categoryRepository) {
+		super(messageSource);
+		this.categoryRepository = categoryRepository;
+	}
+
 	public void checkIfCategoryExists(long id) {
 		if(!categoryRepository.existsById(id))
-			throw new BusinessException(messageSource.getMessage(CategoryMessages.Business.notExists, null, Locale.US));
+			throw new BusinessException(id+messageSource.getMessage(CategoryMessages.Business.notExists, null, Locale.FRENCH));
 	}
 	
 	public void checkIfCategoryExists(String name) {
 		if(!categoryRepository.existsByNameIgnoreCase(name))
-			throw new BusinessException(CategoryMessages.Business.notExists);
+			throw new BusinessException(name+messageSource.getMessage(CategoryMessages.Business.notExists,null, Locale.ENGLISH));
 	}
 	
 	public void checkIfCategoryNameExists(String name) {
 		if(categoryRepository.existsByNameIgnoreCase(name))
-			throw new BusinessException(CategoryMessages.Business.alreadyExists);
+			throw new BusinessException(name+messageSource.getMessage(CategoryMessages.Business.alreadyExists, null, LocaleContextHolder.getLocale()));
 	}
 	
 }

@@ -3,7 +3,6 @@ package com.tunahan.market.dtos.requests.category.cargoCompany;
 import org.hibernate.validator.constraints.Length;
 
 import com.tunahan.market.core.constant.category.CargoCompanyConstants;
-import com.tunahan.market.core.messages.category.CargoCompanyMessages;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,10 +16,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CreateCargoCompanyRequest {
 
-	@NotNull(message = CargoCompanyMessages.Validation.nullCargoCompanyName)
+	@NotNull(message = "{cargoCompany.nullName}")
 	@Length(
 			min=CargoCompanyConstants.minLengthName,
 			max=CargoCompanyConstants.maxLengthName,
-			message = CargoCompanyMessages.Validation.lengthCargoCompanyName)
+			message ="{cargoCompany.lengthName}")
 	private String name;
 }

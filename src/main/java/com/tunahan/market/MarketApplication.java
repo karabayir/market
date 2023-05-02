@@ -39,16 +39,18 @@ public class MarketApplication {
 	@Bean
 	public MessageSource messageSource() {
 	    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-	    messageSource.setBasenames("messages/category/CategoryMessages");
+	    messageSource.setBasenames(
+	    		"messages/category/CategoryMessages",
+	    		"messages/cargoCompany/CargoCompany",
+	    		"messages/product/ProductMessages"
+	    		);
 	    messageSource.setDefaultEncoding("UTF-8");
 	    return messageSource;
 	}
 	
 	@Bean
 	public LocaleResolver localResolver() {
-		//farklı dillerdeki mesajları yüklemek
 		AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
-		//varsayılan dil
 		resolver.setDefaultLocale(new Locale("tr"));
 		return resolver;
 	}

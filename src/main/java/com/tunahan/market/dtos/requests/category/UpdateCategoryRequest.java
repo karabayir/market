@@ -3,7 +3,6 @@ package com.tunahan.market.dtos.requests.category;
 import org.hibernate.validator.constraints.Length;
 
 import com.tunahan.market.core.constant.category.CategoryConstants;
-import com.tunahan.market.core.messages.category.CategoryMessages;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -21,10 +20,10 @@ public class UpdateCategoryRequest {
 	@Positive
 	private long id;
 	
-	@NotNull(message = CategoryMessages.Validation.nullCategoryName)
+	@NotNull(message = "{category.nullName}")
 	@Length(
 			min =CategoryConstants.minLengthName, 
 			max = CategoryConstants.maxLengthName, 
-			message = CategoryMessages.Validation.lengthCategoryName)
+			message = "{category.lengthName}")
 	private String name;
 }
