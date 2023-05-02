@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CreateCargoCompanyRequest {
 
-	@NotNull(message = "{cargoCompany.nullName}")
+	@NotNull(message ="{cargoCompany.nullName}")
 	@Length(
 			min=CargoCompanyConstants.minLengthName,
 			max=CargoCompanyConstants.maxLengthName,

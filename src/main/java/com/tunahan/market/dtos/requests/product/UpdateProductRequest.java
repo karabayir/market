@@ -3,7 +3,6 @@ package com.tunahan.market.dtos.requests.product;
 import org.hibernate.validator.constraints.Length;
 
 import com.tunahan.market.core.constant.product.ProductConstants;
-import com.tunahan.market.core.messages.product.ProductMessages;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -35,29 +34,28 @@ public class UpdateProductRequest {
 	@Positive
 	private long sellerId;
 
-	
-	@NotNull
+	@NotNull(message = "{product.nullName}")
 	@Length(
 			min = ProductConstants.minLengthName, 
 			max = ProductConstants.maxLengthName, 
-			message = ProductMessages.Validation.lengthProductName)
+			message ="{product.lengthName}")
 	private String name;
 	
-	@NotNull
+	@NotNull(message = "{product.nullDescription}")
 	@Length(
 			max = ProductConstants.maxLengthDescription, 
-			message = ProductMessages.Validation.lengthDescription)
+			message ="{product.lengthDescription}")
 	private String description;
 	
 	private String image;
 	
 	@Min(
 			value = ProductConstants.minUnitPrice,
-			message = ProductMessages.Validation.minUnitPrice)
+			message ="{product.minimumUnitPrice}")
 	private double unitPrice;
 	
 	@Min(
 			value = ProductConstants.minStock,
-			message = ProductMessages.Validation.minStock)
+			message ="{product.minimumStock}")
 	private double unitsInStock;
 }

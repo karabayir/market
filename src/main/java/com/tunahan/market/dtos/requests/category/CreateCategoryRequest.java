@@ -16,10 +16,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CreateCategoryRequest {
 
-	@NotNull(message = "{category.nullName}")
+	@NotNull(message ="{category.nullName}")
 	@Length(
 			min =CategoryConstants.minLengthName, 
 			max = CategoryConstants.maxLengthName, 
-			message = "{category.lengthName}")
+			message ="{category.lengthName}")
 	private String name;
 }
