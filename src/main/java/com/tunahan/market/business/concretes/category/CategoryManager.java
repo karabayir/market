@@ -2,6 +2,9 @@ package com.tunahan.market.business.concretes.category;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.category.CategoryService;
@@ -69,6 +72,11 @@ public class CategoryManager implements CategoryService{
 		categoryRepository.save(category);
 		UpdateCategoryResponse result = mapperService.forResponse().map(category, UpdateCategoryResponse.class);
 		return new SuccessDataResult<UpdateCategoryResponse>(result, "update");
+	}
+
+	@Override
+	public DataResult<Slice<GetAllCategoryResponse>> getAllPagination(Pageable pageable) {
+		return new SuccessDataResult<Slice<GetAllCategoryResponse>>(categoryRepository.getAll(pageable),"getAllPagination");
 	}
 	
 }

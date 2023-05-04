@@ -43,7 +43,7 @@ public class CargoCompanyController {
 	}
 	
 	@PostMapping("add")
-	public DataResult<CreateCargoCompanyResponse> add(@Valid @RequestBody CreateCargoCompanyRequest createRequest) {
-		return companyService.add(createRequest);
+	public DataResult<CreateCargoCompanyResponse> add(@Valid @RequestBody CreateCargoCompanyRequest request) {
+		return companyService.add(request);
 	}
 }

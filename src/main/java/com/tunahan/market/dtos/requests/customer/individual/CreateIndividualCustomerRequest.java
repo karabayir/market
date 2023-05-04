@@ -1,4 +1,4 @@
-package com.tunahan.market.dtos.requests.customer;
+package com.tunahan.market.dtos.requests.customer.individual;
 
 import java.time.LocalDate;
 
@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tunahan.market.core.constant.customer.IndividualCustomerConstants;
-import com.tunahan.market.core.messages.customer.IndividualCustomerMessages;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -23,40 +22,42 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CreateIndividualCustomerRequest {
 
-	@NotNull(message = IndividualCustomerMessages.Validation.nullCustomerEmail)
+	@NotNull(message ="{individual.nullMail}")
 	@NotBlank
 	@Email
 	private String email;
 	
+	@NotNull(message ="{individual.nullPhone}")
 	@Length(
 			min=IndividualCustomerConstants.minLengthPhone, 
 			max = IndividualCustomerConstants.maxLengthPhone,
-			message = IndividualCustomerMessages.Validation.lengthCustomerPhone)
+			message ="{individual.lengthPhone}")
 	@Pattern(regexp = "\\S+")
 	private String phone;
 	
+	@NotNull(message ="{individual.nullIdentityNumber}")
 	@Length(
 			min=IndividualCustomerConstants.lengthTCKN,
 			max=IndividualCustomerConstants.lengthTCKN,
-			message = IndividualCustomerMessages.Validation.lengthCustomerTCKN)
+			message = "{individual.lengthIdentityNumber}")
 	@Pattern(regexp = "\\S+")
 	private String TCKN;
 	
-	@NotNull
+	@NotNull(message ="{individual.nullFirtName}")
 	@Length(
 			min = IndividualCustomerConstants.minLengthFirstName,
 			max = IndividualCustomerConstants.maxLengthFirstName,
-			message = IndividualCustomerMessages.Validation.lengthCustomerFirstName)
+			message ="{individual.lengthFirstName}")
 	private String firstName;
 	
-	@NotNull
+	@NotNull(message ="{individual.nullLastName}")
 	@Length(
 			min = IndividualCustomerConstants.minLengthLastName,
 			max = IndividualCustomerConstants.maxLengthLastName,
-			message = IndividualCustomerMessages.Validation.lengthCustomerLastName)
+			message ="{individual.lengthLastName}")
 	private String lastName;
 	
-	@NotNull(message = IndividualCustomerMessages.Validation.nullCustomerBirthDate)
+	@NotNull(message ="{individual.nullBirthDay}")
 	@JsonFormat(pattern = "dd.MM.yyyy")
 	private LocalDate dateOfBirth;
 }

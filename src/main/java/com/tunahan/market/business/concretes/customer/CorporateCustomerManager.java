@@ -9,10 +9,12 @@ import com.tunahan.market.business.abstracts.customer.CorporateCustomerService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.SuccessDataResult;
-import com.tunahan.market.dtos.requests.customer.CreateCorporateCustomerRequest;
+import com.tunahan.market.dtos.requests.customer.corporate.CreateCorporateCustomerRequest;
+import com.tunahan.market.dtos.requests.customer.corporate.UpdateCorporateCustomerRequest;
 import com.tunahan.market.dtos.responses.customer.corporate.CreateCorporateCustomerResponse;
 import com.tunahan.market.dtos.responses.customer.corporate.GetAllCorporateCustomerResponse;
 import com.tunahan.market.dtos.responses.customer.corporate.GetCorporateCustomerResponse;
+import com.tunahan.market.dtos.responses.customer.corporate.UpdateCorporateCustomerResponse;
 import com.tunahan.market.entities.customer.CorporateCustomer;
 import com.tunahan.market.repository.customer.CorporateCustomerRepository;
 import com.tunahan.market.rules.customer.CorporateCustomerRules;
@@ -67,5 +69,13 @@ public class CorporateCustomerManager implements CorporateCustomerService{
 		repository.save(customer);
 		CreateCorporateCustomerResponse result = mapperService.forResponse().map(customer, CreateCorporateCustomerResponse.class);
 		return new SuccessDataResult<CreateCorporateCustomerResponse>(result, "add");
+	}
+	@Override
+	public DataResult<UpdateCorporateCustomerResponse> update(UpdateCorporateCustomerRequest request) {
+		rules.checkIfCorporateCustomerExists(request.getId());
+		CorporateCustomer customer = mapperService.forRequest().map(request, CorporateCustomer.class);
+		repository.save(customer);
+		UpdateCorporateCustomerResponse result = mapperService.forResponse().map(customer, UpdateCorporateCustomerResponse.class);
+		return new SuccessDataResult<UpdateCorporateCustomerResponse>(result, "update");
 	}
 }

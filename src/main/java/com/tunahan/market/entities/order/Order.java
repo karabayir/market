@@ -41,6 +41,6 @@ public class Order {
 	private List<Installment> installmentList;
 	
 	
-	private LocalDate date;
+	private LocalDate date = LocalDate.now();
 	private double totalPrice;
 }

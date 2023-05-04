@@ -1,9 +1,8 @@
-package com.tunahan.market.dtos.requests.customer;
+package com.tunahan.market.dtos.requests.customer.corporate;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.tunahan.market.core.constant.customer.CorporateCustomerConstants;
-import com.tunahan.market.core.messages.customer.CorporateCustomerMessages;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -20,30 +19,31 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CreateCorporateCustomerRequest {
 
-	@NotNull
+	@NotNull(message ="{corporate.nullMail}")
 	@NotBlank
-	@Email(message = CorporateCustomerMessages.Validation.nullCustomerEmail)
+	@Email
 	private String email;
 	
+	@NotNull(message = "{corporate.nullPhone}")
 	@Length(
 			min=CorporateCustomerConstants.minLengthPhone, 
 			max = CorporateCustomerConstants.maxLengthPhone,
-			message = CorporateCustomerMessages.Validation.lengthCustomerPhone)
+			message ="{corporate.lengthPhone}")
 	@Pattern(regexp = "\\S+")
 	private String phone;
 	
-	
-	@NotNull
+	@NotNull(message ="{corporate.nullName}")
 	@Length(
 			min = CorporateCustomerConstants.minLengthName,
 			max = CorporateCustomerConstants.maxLengthName,
-			message = CorporateCustomerMessages.Validation.lengthCustomerName)
+			message ="{corporate.lengthName}")
 	private String name;
 	
+	@NotNull(message ="{corporate.nullTaxNumber}")
 	@Length(
 			min=CorporateCustomerConstants.minLengthTaxNumber,
 			max=CorporateCustomerConstants.maxLengthTaxNumber,
-			message = CorporateCustomerMessages.Validation.lengthCustomerTaxNumber)
+			message = "{corporate.lengthTaxNumber}")
 	@Pattern(regexp = "\\S+")
 	private String taxNumber;
 }

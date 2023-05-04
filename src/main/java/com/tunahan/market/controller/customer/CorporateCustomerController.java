@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.customer.CorporateCustomerService;
 import com.tunahan.market.core.utilities.result.DataResult;
-import com.tunahan.market.dtos.requests.customer.CreateCorporateCustomerRequest;
+import com.tunahan.market.dtos.requests.customer.corporate.CreateCorporateCustomerRequest;
+import com.tunahan.market.dtos.requests.customer.corporate.UpdateCorporateCustomerRequest;
 import com.tunahan.market.dtos.responses.customer.corporate.CreateCorporateCustomerResponse;
 import com.tunahan.market.dtos.responses.customer.corporate.GetAllCorporateCustomerResponse;
 import com.tunahan.market.dtos.responses.customer.corporate.GetCorporateCustomerResponse;
+import com.tunahan.market.dtos.responses.customer.corporate.UpdateCorporateCustomerResponse;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -50,6 +53,11 @@ public class CorporateCustomerController {
 	@PostMapping("add")
 	DataResult<CreateCorporateCustomerResponse> add(@Valid @RequestBody CreateCorporateCustomerRequest request){
 		return service.add(request);
+	}
+	
+	@PutMapping("update")
+	DataResult<UpdateCorporateCustomerResponse> update(@Valid @RequestBody UpdateCorporateCustomerRequest request){
+		return service.update(request);
 	}
 	
 	

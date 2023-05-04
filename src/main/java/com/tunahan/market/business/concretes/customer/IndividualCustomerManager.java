@@ -9,10 +9,12 @@ import com.tunahan.market.business.abstracts.customer.IndividualCustomerService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.SuccessDataResult;
-import com.tunahan.market.dtos.requests.customer.CreateIndividualCustomerRequest;
+import com.tunahan.market.dtos.requests.customer.individual.CreateIndividualCustomerRequest;
+import com.tunahan.market.dtos.requests.customer.individual.UpdateIndividualCustomerRequest;
 import com.tunahan.market.dtos.responses.customer.individual.CreateIndividualCustomerResponse;
 import com.tunahan.market.dtos.responses.customer.individual.GetAllIndividualCustomerResponse;
 import com.tunahan.market.dtos.responses.customer.individual.GetIndividualCustomerResponse;
+import com.tunahan.market.dtos.responses.customer.individual.UpdateIndividualCustomerResponse;
 import com.tunahan.market.entities.customer.IndividualCustomer;
 import com.tunahan.market.repository.customer.IndividualCustomerRepository;
 import com.tunahan.market.rules.customer.IndividualCustomerRules;
@@ -70,6 +72,15 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 		repository.save(customer);
 		CreateIndividualCustomerResponse result = mapperService.forResponse().map(customer, CreateIndividualCustomerResponse.class);
 		return new SuccessDataResult<CreateIndividualCustomerResponse>(result, "add");
+	}
+
+	@Override
+	public DataResult<UpdateIndividualCustomerResponse> update(UpdateIndividualCustomerRequest request) {
+		rules.checkIfIndividualCustomerExists(request.getId());
+		IndividualCustomer customer = mapperService.forRequest().map(request, IndividualCustomer.class);
+		repository.save(customer);
+		UpdateIndividualCustomerResponse result = mapperService.forResponse().map(customer, UpdateIndividualCustomerResponse.class);
+		return new SuccessDataResult<UpdateIndividualCustomerResponse>(result, "update");
 	}
 
 }

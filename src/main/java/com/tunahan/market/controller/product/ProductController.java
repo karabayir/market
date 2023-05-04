@@ -46,8 +46,8 @@ public class ProductController {
 	}
 	
 	@PostMapping("add")
-	public DataResult<CreateProductResponse> add(@Valid @RequestBody CreateProductRequest createRequest) {
-		return productService.add(createRequest);
+	public DataResult<CreateProductResponse> add(@Valid @RequestBody CreateProductRequest request) {
+		return productService.add(request);
 	}
 	
 	@PutMapping("update")

@@ -42,7 +42,12 @@ public class MarketApplication {
 	    messageSource.setBasenames(
 	    		"messages/category/CategoryMessages",
 	    		"messages/cargoCompany/CargoCompany",
-	    		"messages/product/ProductMessages"
+	    		"messages/product/ProductMessages",
+	    		"messages/order/OrderMessages",
+	    		"messages/seller/SellerMessages",
+	    		"messages/customer/corporate/CorporateMessages",
+	    		"messages/customer/individual/IndividualMessages",
+	    		"messages/customer/customer/CustomerMessages"
 	    		);
 	    messageSource.setDefaultEncoding("UTF-8");
 	    return messageSource;

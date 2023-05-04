@@ -10,9 +10,11 @@ import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.SuccessDataResult;
 import com.tunahan.market.dtos.requests.seller.CreateSellerRequest;
+import com.tunahan.market.dtos.requests.seller.UpdateSellerRequest;
 import com.tunahan.market.dtos.responses.seller.CreateSellerResponse;
 import com.tunahan.market.dtos.responses.seller.GetAllSellerResponse;
 import com.tunahan.market.dtos.responses.seller.GetSellerResponse;
+import com.tunahan.market.dtos.responses.seller.UpdateSellerResponse;
 import com.tunahan.market.entities.seller.Seller;
 import com.tunahan.market.repository.seller.SellerRepository;
 import com.tunahan.market.rules.seller.SellerRules;
@@ -63,12 +65,21 @@ public class SellerManager implements SellerService{
 	}
 
 	@Override
-	public DataResult<CreateSellerResponse> add(CreateSellerRequest createRequest) {
-		rules.checkIfSellerTaxNumberForAdd(createRequest.getTaxNumber());
-		Seller  seller = mapperService.forRequest().map(createRequest, Seller.class);
+	public DataResult<CreateSellerResponse> add(CreateSellerRequest request) {
+		rules.checkIfSellerTaxNumberForAdd(request.getTaxNumber());
+		Seller  seller = mapperService.forRequest().map(request, Seller.class);
 		sellerRepository.save(seller);
 		CreateSellerResponse result= mapperService.forResponse().map(seller, CreateSellerResponse.class);
 		return new SuccessDataResult<CreateSellerResponse>(result, "add");
+	}
+
+	@Override
+	public DataResult<UpdateSellerResponse> update(UpdateSellerRequest request) {
+		rules.checkIfSellerExists(request.getId());
+		Seller seller = mapperService.forRequest().map(request, Seller.class);
+		sellerRepository.save(seller);
+		UpdateSellerResponse result= mapperService.forResponse().map(seller, UpdateSellerResponse.class);
+		return new SuccessDataResult<UpdateSellerResponse>(result, "update");
 	}
 
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.customer.IndividualCustomerService;
 import com.tunahan.market.core.utilities.result.DataResult;
-import com.tunahan.market.dtos.requests.customer.CreateIndividualCustomerRequest;
+import com.tunahan.market.dtos.requests.customer.individual.CreateIndividualCustomerRequest;
+import com.tunahan.market.dtos.requests.customer.individual.UpdateIndividualCustomerRequest;
 import com.tunahan.market.dtos.responses.customer.individual.CreateIndividualCustomerResponse;
 import com.tunahan.market.dtos.responses.customer.individual.GetAllIndividualCustomerResponse;
 import com.tunahan.market.dtos.responses.customer.individual.GetIndividualCustomerResponse;
+import com.tunahan.market.dtos.responses.customer.individual.UpdateIndividualCustomerResponse;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -50,6 +53,11 @@ public class IndividualCustomerController {
 	@PostMapping("add")
 	DataResult<CreateIndividualCustomerResponse> add(@Valid @RequestBody CreateIndividualCustomerRequest request){
 		return service.add(request);
+	}
+	
+	@PutMapping("update")
+	public DataResult<UpdateIndividualCustomerResponse> update(@Valid @RequestBody UpdateIndividualCustomerRequest request){
+		return service.update(request);
 	}
 }
 

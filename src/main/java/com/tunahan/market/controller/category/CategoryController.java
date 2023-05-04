@@ -2,6 +2,9 @@ package com.tunahan.market.controller.category;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,5 +56,11 @@ public class CategoryController {
 	@PutMapping("update")
 	public DataResult<UpdateCategoryResponse> update(@Valid @RequestBody UpdateCategoryRequest request){
 		return categoryService.update(request);
+	}
+	
+	@GetMapping("getAllPagination")
+	public DataResult<Slice<GetAllCategoryResponse>> getAllPagination(@RequestParam("page") int page, @RequestParam("pageSize")int pageSize){
+		Pageable pageable =PageRequest.of(page, pageSize);
+		return categoryService.getAllPagination(pageable);
 	}
 }
