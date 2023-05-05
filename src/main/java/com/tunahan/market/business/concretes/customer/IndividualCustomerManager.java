@@ -3,12 +3,17 @@ package com.tunahan.market.business.concretes.customer;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.customer.IndividualCustomerService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.core.utilities.result.SuccessDataResult;
+import com.tunahan.market.core.utilities.result.SuccessResult;
 import com.tunahan.market.dtos.requests.customer.individual.CreateIndividualCustomerRequest;
 import com.tunahan.market.dtos.requests.customer.individual.UpdateIndividualCustomerRequest;
 import com.tunahan.market.dtos.responses.customer.individual.CreateIndividualCustomerResponse;
@@ -81,6 +86,20 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 		repository.save(customer);
 		UpdateIndividualCustomerResponse result = mapperService.forResponse().map(customer, UpdateIndividualCustomerResponse.class);
 		return new SuccessDataResult<UpdateIndividualCustomerResponse>(result, "update");
+	}
+
+	@Override
+	public Result delete(long id) {
+		rules.checkIfIndividualCustomerExists(id);
+		repository.deleteById(id);
+		return new SuccessResult("delete");
+	}
+
+	@Override
+	public DataResult<Page<IndividualCustomer>> getAllPageable(int number, int size) {
+		Pageable pageable = PageRequest.of(number, size);
+		Page<IndividualCustomer> result = repository.findAll(pageable);
+		return new SuccessDataResult<Page<IndividualCustomer>>(result, "getAllPageable");
 	}
 
 }

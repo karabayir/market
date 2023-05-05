@@ -3,12 +3,17 @@ package com.tunahan.market.business.concretes.customer;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.customer.CorporateCustomerService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.core.utilities.result.SuccessDataResult;
+import com.tunahan.market.core.utilities.result.SuccessResult;
 import com.tunahan.market.dtos.requests.customer.corporate.CreateCorporateCustomerRequest;
 import com.tunahan.market.dtos.requests.customer.corporate.UpdateCorporateCustomerRequest;
 import com.tunahan.market.dtos.responses.customer.corporate.CreateCorporateCustomerResponse;
@@ -77,5 +82,17 @@ public class CorporateCustomerManager implements CorporateCustomerService{
 		repository.save(customer);
 		UpdateCorporateCustomerResponse result = mapperService.forResponse().map(customer, UpdateCorporateCustomerResponse.class);
 		return new SuccessDataResult<UpdateCorporateCustomerResponse>(result, "update");
+	}
+	@Override
+	public Result delete(long id) {
+		rules.checkIfCorporateCustomerExists(id);
+		repository.deleteById(id);
+		return new SuccessResult("delete");
+	}
+	@Override
+	public DataResult<Page<CorporateCustomer>> getAllPageable(int number, int size) {
+		Pageable pageable = PageRequest.of(number, size);
+		Page<CorporateCustomer> result = repository.findAll(pageable);
+		return new SuccessDataResult<Page<CorporateCustomer>>(result, "getAllPageable");
 	}
 }

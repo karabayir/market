@@ -5,8 +5,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.core.exceptions.BusinessException;
-import com.tunahan.market.core.messages.category.CargoCompanyMessages;
-import com.tunahan.market.repository.category.CargoCompanyRepository;
+import com.tunahan.market.core.messages.cargo.CargoCompanyMessages;
+import com.tunahan.market.repository.cargo.CargoCompanyRepository;
 import com.tunahan.market.rules.BaseRules;
 
 @Service

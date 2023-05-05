@@ -1,4 +1,4 @@
-package com.tunahan.market.dtos.requests.category.cargoCompany;
+package com.tunahan.market.dtos.requests.cargo;
 
 import org.hibernate.validator.constraints.Length;
 

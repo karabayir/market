@@ -1,4 +1,4 @@
-package com.tunahan.market.core.messages.category;
+package com.tunahan.market.core.messages.cargo;
 
 public class CargoCompanyMessages {
 

@@ -3,12 +3,17 @@ package com.tunahan.market.business.concretes.order;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.order.OrderService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.core.utilities.result.SuccessDataResult;
+import com.tunahan.market.core.utilities.result.SuccessResult;
 import com.tunahan.market.dtos.requests.order.CreateOrderRequest;
 import com.tunahan.market.dtos.requests.order.UpdateOrderRequest;
 import com.tunahan.market.dtos.responses.order.CreateOrderResponse;
@@ -70,6 +75,20 @@ public class OrderManager implements OrderService{
 		orderRepository.save(order);
 		UpdateOrderResponse result= mapperService.forResponse().map(order, UpdateOrderResponse.class);
 		return new SuccessDataResult<UpdateOrderResponse>(result, "update");
+	}
+
+	@Override
+	public Result delete(long id) {
+		rules.checkIfOrderExists(id);
+		orderRepository.deleteById(id);
+		return new SuccessResult("delete");
+	}
+
+	@Override
+	public DataResult<Page<Order>> getAllPageable(int number, int size) {
+		Pageable pageable = PageRequest.of(number, size);
+		Page<Order> result = orderRepository.findAll(pageable);
+		return new SuccessDataResult<Page<Order>>(result, "getAllPageable");
 	}
 
 }

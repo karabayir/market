@@ -1,4 +1,4 @@
-package com.tunahan.market.repository.category;
+package com.tunahan.market.repository.cargo;
 
 import java.util.Optional;
 

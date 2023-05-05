@@ -2,9 +2,8 @@ package com.tunahan.market.controller.category;
 
 import java.util.List;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.category.CategoryService;
 import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.dtos.requests.category.CreateCategoryRequest;
 import com.tunahan.market.dtos.requests.category.UpdateCategoryRequest;
 import com.tunahan.market.dtos.responses.category.CreateCategoryResponse;
 import com.tunahan.market.dtos.responses.category.GetAllCategoryResponse;
 import com.tunahan.market.dtos.responses.category.GetCategoryResponse;
 import com.tunahan.market.dtos.responses.category.UpdateCategoryResponse;
+import com.tunahan.market.entities.category.Category;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -58,9 +59,13 @@ public class CategoryController {
 		return categoryService.update(request);
 	}
 	
-	@GetMapping("getAllPagination")
-	public DataResult<Slice<GetAllCategoryResponse>> getAllPagination(@RequestParam("page") int page, @RequestParam("pageSize")int pageSize){
-		Pageable pageable =PageRequest.of(page, pageSize);
-		return categoryService.getAllPagination(pageable);
+	@DeleteMapping("delete/{id}")
+	public Result delete(@PathVariable long id) {
+		return categoryService.delete(id);
+	}
+	
+	@GetMapping("getAllPageable")
+	public DataResult<Page<Category>> getAllPageable(@RequestParam int number, @RequestParam int size){
+		return categoryService.getAllPageable(number, size);
 	}
 }

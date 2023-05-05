@@ -3,12 +3,17 @@ package com.tunahan.market.business.concretes.seller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.seller.SellerService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.core.utilities.result.SuccessDataResult;
+import com.tunahan.market.core.utilities.result.SuccessResult;
 import com.tunahan.market.dtos.requests.seller.CreateSellerRequest;
 import com.tunahan.market.dtos.requests.seller.UpdateSellerRequest;
 import com.tunahan.market.dtos.responses.seller.CreateSellerResponse;
@@ -80,6 +85,20 @@ public class SellerManager implements SellerService{
 		sellerRepository.save(seller);
 		UpdateSellerResponse result= mapperService.forResponse().map(seller, UpdateSellerResponse.class);
 		return new SuccessDataResult<UpdateSellerResponse>(result, "update");
+	}
+
+	@Override
+	public Result delete(long id) {
+		rules.checkIfSellerExists(id);
+		sellerRepository.deleteById(id);
+		return new SuccessResult("delete");
+	}
+
+	@Override
+	public DataResult<Page<Seller>> getAllPageable(int number, int size) {
+		Pageable pageable = PageRequest.of(number, size);
+		Page<Seller> result = sellerRepository.findAll(pageable);
+		return new SuccessDataResult<Page<Seller>>(result, "getAllPageable");
 	}
 
 

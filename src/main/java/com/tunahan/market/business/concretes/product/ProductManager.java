@@ -3,12 +3,17 @@ package com.tunahan.market.business.concretes.product;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.product.ProductService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.core.utilities.result.SuccessDataResult;
+import com.tunahan.market.core.utilities.result.SuccessResult;
 import com.tunahan.market.dtos.requests.product.CreateProductRequest;
 import com.tunahan.market.dtos.requests.product.UpdateProductRequest;
 import com.tunahan.market.dtos.responses.product.CreateProductResponse;
@@ -72,6 +77,20 @@ public class ProductManager implements ProductService{
 		productRepository.save(product);	
 		UpdateProductResponse result = mapperService.forResponse().map(product, UpdateProductResponse.class);
 		return new SuccessDataResult<UpdateProductResponse>(result, "update");
+	}
+
+	@Override
+	public Result delete(long id) {
+		rules.checkIfProductExists(id);
+		productRepository.deleteById(id);
+		return new SuccessResult("delete");
+	}
+
+	@Override
+	public DataResult<Page<Product>> getAllPageable(int number, int size) {
+		Pageable pageable = PageRequest.of(number, size);
+		Page<Product> result = productRepository.findAll(pageable);
+		return new SuccessDataResult<Page<Product>>(result, "getAllPageable");
 	}
 	
 }

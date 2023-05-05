@@ -3,14 +3,17 @@ package com.tunahan.market.business.concretes.category;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.category.CategoryService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
+import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.core.utilities.result.SuccessDataResult;
+import com.tunahan.market.core.utilities.result.SuccessResult;
 import com.tunahan.market.dtos.requests.category.CreateCategoryRequest;
 import com.tunahan.market.dtos.requests.category.UpdateCategoryRequest;
 import com.tunahan.market.dtos.responses.category.CreateCategoryResponse;
@@ -75,8 +78,17 @@ public class CategoryManager implements CategoryService{
 	}
 
 	@Override
-	public DataResult<Slice<GetAllCategoryResponse>> getAllPagination(Pageable pageable) {
-		return new SuccessDataResult<Slice<GetAllCategoryResponse>>(categoryRepository.getAll(pageable),"getAllPagination");
+	public Result delete(long id) {
+		rules.checkIfCategoryExists(id);
+		categoryRepository.deleteById(id);
+		return new SuccessResult("delete");
+	}
+
+	@Override
+	public DataResult<Page<Category>> getAllPageable(int number, int size) {
+		Pageable pageable = PageRequest.of(number, size);
+		Page<Category> result = categoryRepository.findAll(pageable);
+		return new SuccessDataResult<Page<Category>>(result, "getAllPagable");
 	}
 	
 }
