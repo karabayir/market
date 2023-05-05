@@ -22,7 +22,7 @@ import com.tunahan.market.dtos.responses.cargo.GetCargoCompanyResponse;
 import com.tunahan.market.dtos.responses.cargo.UpdateCargoCompanyResponse;
 import com.tunahan.market.entities.category.CargoCompany;
 import com.tunahan.market.repository.cargo.CargoCompanyRepository;
-import com.tunahan.market.rules.category.CargoCompanyRules;
+import com.tunahan.market.rules.cargo.CargoCompanyRules;
 
 import lombok.AllArgsConstructor;
 

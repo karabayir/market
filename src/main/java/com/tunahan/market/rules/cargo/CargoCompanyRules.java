@@ -1,4 +1,4 @@
-package com.tunahan.market.rules.category;
+package com.tunahan.market.rules.cargo;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
