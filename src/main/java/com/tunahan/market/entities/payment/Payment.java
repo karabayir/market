@@ -1,6 +1,6 @@
 package com.tunahan.market.entities.payment;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.tunahan.market.entities.order.Order;
@@ -38,7 +38,7 @@ public class Payment {
 	@OneToMany(mappedBy = "payment")
 	private List<Installment> installmentList;
 	
-	private Date date;
+	private LocalDate date = LocalDate.now();
 	
 	@Enumerated(EnumType.STRING)
 	private PaymentMethod paymentMethod;

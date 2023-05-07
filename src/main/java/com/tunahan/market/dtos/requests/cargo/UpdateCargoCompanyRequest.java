@@ -2,7 +2,7 @@ package com.tunahan.market.dtos.requests.cargo;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.tunahan.market.core.constant.category.CargoCompanyConstants;
+import com.tunahan.market.core.constant.cargo.CargoCompanyConstants;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

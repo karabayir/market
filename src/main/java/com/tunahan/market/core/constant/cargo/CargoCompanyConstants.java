@@ -1,4 +1,4 @@
-package com.tunahan.market.core.constant.category;
+package com.tunahan.market.core.constant.cargo;
 
 public class CargoCompanyConstants {
 
