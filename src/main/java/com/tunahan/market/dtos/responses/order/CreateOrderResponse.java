@@ -17,5 +17,6 @@ public class CreateOrderResponse{
 	private long customerId;
 	private long productId;
 	private LocalDate date;
+	private int productQuantity;
 	private double totalPrice;
 }

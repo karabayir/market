@@ -24,7 +24,7 @@ public class UpdateOrderRequest {
 	@Positive
 	private long productId;
 	
-	@Min(value = OrderConstants.minTotalPrice,
-		 message = "{order.minimumTotalPrice}")
-	private double totalPrice;
+	@Min(value = OrderConstants.minProductQuantity,
+		 message = "{order.minimumProductQuantity}")
+	private int productQuantity;
 }

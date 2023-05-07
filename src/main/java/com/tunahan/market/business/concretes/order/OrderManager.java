@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.order.OrderService;
+import com.tunahan.market.business.abstracts.product.ProductService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
@@ -21,6 +22,7 @@ import com.tunahan.market.dtos.responses.order.GetAllOrderResponse;
 import com.tunahan.market.dtos.responses.order.GetOrderResponse;
 import com.tunahan.market.dtos.responses.order.UpdateOrderResponse;
 import com.tunahan.market.entities.order.Order;
+import com.tunahan.market.entities.product.Product;
 import com.tunahan.market.repository.order.OrderRepository;
 import com.tunahan.market.rules.customer.CustomerRules;
 import com.tunahan.market.rules.order.OrderRules;
@@ -37,6 +39,7 @@ public class OrderManager implements OrderService{
 	private final OrderRules rules;
 	private final ProductRules productRules;
     private final CustomerRules customerRules;	
+    private final ProductService productService;
 	
 	@Override
 	public DataResult<List<GetAllOrderResponse>> getAll() {
@@ -60,7 +63,9 @@ public class OrderManager implements OrderService{
 		productRules.checkIfProductExists(request.getProductId());
 		customerRules.checkIfCustomerExists(request.getCustomerId());
 		Order order = mapperService.forRequest().map(request, Order.class);
+		Product product = mapperService.forResponse().map(productService.getById(request.getProductId()).getData(), Product.class);
 		order.setId(0);
+		order.setTotalPrice(request.getProductQuantity()*product.getUnitPrice());
 		orderRepository.save(order);
 		CreateOrderResponse result= mapperService.forResponse().map(order, CreateOrderResponse.class);
 		return new SuccessDataResult<CreateOrderResponse>(result, "add");
@@ -72,6 +77,9 @@ public class OrderManager implements OrderService{
 		productRules.checkIfProductExists(request.getProductId());
 		customerRules.checkIfCustomerExists(request.getCustomerId());
 		Order order = mapperService.forRequest().map(request, Order.class);
+		Product product = mapperService.forResponse().map(productService.getById(request.getProductId()).getData(), Product.class);
+		order.setId(0);
+		order.setTotalPrice(request.getProductQuantity()*product.getUnitPrice());
 		orderRepository.save(order);
 		UpdateOrderResponse result= mapperService.forResponse().map(order, UpdateOrderResponse.class);
 		return new SuccessDataResult<UpdateOrderResponse>(result, "update");

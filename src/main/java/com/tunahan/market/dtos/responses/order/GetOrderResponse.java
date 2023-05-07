@@ -21,5 +21,6 @@ public class GetOrderResponse{
 	private long productId;
 	private LocalDate date;
 	private double totalPrice;
+	private int productQuantity;
 	private List<Installment> installmentList;
 }

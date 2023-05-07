@@ -40,7 +40,7 @@ public class Order {
 	@OneToMany(mappedBy = "order")
 	private List<Installment> installmentList;
 	
-	
+	private int productQuantity;
 	private LocalDate date = LocalDate.now();
 	private double totalPrice;
 }

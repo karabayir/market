@@ -1,6 +1,6 @@
 package com.tunahan.market.entities.comment;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,7 +21,7 @@ public abstract class BaseComment {
 	private long id;
 	
 	private String comment;
-	private Date commentDate;
+	private LocalDate date = LocalDate.now();
     
 	@Enumerated(EnumType.STRING)
 	private CommentStatus commentStatus;

@@ -6,6 +6,6 @@ public class OrderMessages {
 		public static final String  notExists ="order.not.exists";
 	}	
 	public static class Validation{
-		public static  final String minUnitPrice = "order.minimumTotalPrice";
+		public static  final String minProductQuantity = "order.minimumProductQuantity";
 	}
 }
