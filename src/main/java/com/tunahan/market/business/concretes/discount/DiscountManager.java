@@ -22,6 +22,7 @@ import com.tunahan.market.dtos.responses.discount.GetDiscountResponse;
 import com.tunahan.market.dtos.responses.discount.UpdateDiscountResponse;
 import com.tunahan.market.entities.preOrder.Discount;
 import com.tunahan.market.repository.preOrder.DiscountRepository;
+import com.tunahan.market.rules.discount.DiscountRules;
 
 import lombok.AllArgsConstructor;
 
@@ -31,6 +32,7 @@ public class DiscountManager implements DiscountService{
 	
 	private final DiscountRepository discountRepository;
 	private final ModelMapperService mapperService;
+	private final DiscountRules rules;
 
 	@Override
 	public DataResult<List<GetAllDiscountResponse>> getAll() {
@@ -43,6 +45,7 @@ public class DiscountManager implements DiscountService{
 
 	@Override
 	public DataResult<GetDiscountResponse> getById(long id) {
+		rules.checkIfDiscountExists(id);
 		Discount discount = discountRepository.findById(id).orElseThrow();
 		GetDiscountResponse result = mapperService.forResponse().map(discount, GetDiscountResponse.class);
 		return new SuccessDataResult<GetDiscountResponse>(result, "getById");
@@ -50,6 +53,7 @@ public class DiscountManager implements DiscountService{
 
 	@Override
 	public DataResult<GetDiscountResponse> getByName(String name) {
+		rules.checkIfDiscountExists(name);
 		Discount discount = discountRepository.findByNameIgnoreCase(name).orElseThrow();
 		GetDiscountResponse result = mapperService.forResponse().map(discount, GetDiscountResponse.class);
 		return new SuccessDataResult<GetDiscountResponse>(result, "getByName");
@@ -66,6 +70,7 @@ public class DiscountManager implements DiscountService{
 
 	@Override
 	public DataResult<UpdateDiscountResponse> update(UpdateDiscountRequest request) {
+		rules.checkIfDiscountExists(request.getId());
 		Discount discount = mapperService.forRequest().map(request, Discount.class);
 		discountRepository.save(discount);
 		UpdateDiscountResponse result = mapperService.forResponse().map(discount, UpdateDiscountResponse.class);
@@ -81,6 +86,7 @@ public class DiscountManager implements DiscountService{
 
 	@Override
 	public Result delete(long id) {
+		rules.checkIfDiscountExists(id);
 		discountRepository.deleteById(id);
 		return new SuccessResult("delete");
 	}

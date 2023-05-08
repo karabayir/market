@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.Length;
 
 import com.tunahan.market.core.constant.payment.PaymentConstants;
 import com.tunahan.market.entities.payment.PaymentMethod;
-import com.tunahan.market.entities.payment.PaymentStatus;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -33,7 +32,6 @@ public class CreatePaymentRequest {
 	        message ="{payment.lengthCurrency}")
 	private String currency;
 	
-	private PaymentStatus paymentStatus;
 	private PaymentMethod paymentMethod;
 	private String confirmNumber;
 }

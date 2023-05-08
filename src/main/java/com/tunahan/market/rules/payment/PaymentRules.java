@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.tunahan.market.core.exceptions.BusinessException;
 import com.tunahan.market.core.messages.payment.PaymentMessages;
+import com.tunahan.market.entities.payment.Payment;
+import com.tunahan.market.entities.payment.PaymentStatus;
 import com.tunahan.market.repository.payment.PaymentRepository;
 import com.tunahan.market.rules.BaseRules;
 
@@ -28,4 +30,12 @@ public class PaymentRules extends BaseRules{
 		if(!paymentRepository.existsByConfirmNumber(confirmNumber))
 			new BusinessException(confirmNumber+messageSource.getMessage(PaymentMessages.Business.notExists, null, LocaleContextHolder.getLocale()));
 	}
+	
+	public void checkIfInsufficientBalance(double orderPrice, double paymentPrice,Payment payment) {
+		if(paymentPrice<orderPrice)
+			payment.setPaymentStatus(PaymentStatus.REJECTED);
+		if(paymentPrice>=orderPrice)
+			payment.setPaymentStatus(PaymentStatus.CONFIRMED);
+	}
+
 }

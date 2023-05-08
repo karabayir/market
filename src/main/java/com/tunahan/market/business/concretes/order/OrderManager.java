@@ -27,6 +27,7 @@ import com.tunahan.market.entities.preOrder.Discount;
 import com.tunahan.market.entities.product.Product;
 import com.tunahan.market.repository.order.OrderRepository;
 import com.tunahan.market.rules.customer.CustomerRules;
+import com.tunahan.market.rules.discount.DiscountRules;
 import com.tunahan.market.rules.order.OrderRules;
 import com.tunahan.market.rules.product.ProductRules;
 
@@ -42,6 +43,7 @@ public class OrderManager implements OrderService{
 	private final ProductRules productRules;
     private final CustomerRules customerRules;	
     private final ProductService productService;
+    private final DiscountRules discountRules;
     private final DiscountService discountService;
 	
 	@Override
@@ -65,6 +67,7 @@ public class OrderManager implements OrderService{
 	public DataResult<CreateOrderResponse> add(CreateOrderRequest request) {
 		productRules.checkIfProductExists(request.getProductId());
 		customerRules.checkIfCustomerExists(request.getCustomerId());
+		discountRules.checkIfDiscountExists(request.getDiscountId());
 		Order order = mapperService.forRequest().map(request, Order.class);
 		order.setId(0);
 		Product product = mapperService.forResponse().map(productService.getById(request.getProductId()).getData(), Product.class);
@@ -82,6 +85,7 @@ public class OrderManager implements OrderService{
 		rules.checkIfOrderExists(request.getId());
 		productRules.checkIfProductExists(request.getProductId());
 		customerRules.checkIfCustomerExists(request.getCustomerId());
+		discountRules.checkIfDiscountExists(request.getDiscountId());
 		Order order = mapperService.forRequest().map(request, Order.class);
 		order.setId(0);
 		Product product = mapperService.forResponse().map(productService.getById(request.getProductId()).getData(), Product.class);

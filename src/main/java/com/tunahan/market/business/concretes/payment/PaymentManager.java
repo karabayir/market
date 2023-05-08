@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.tunahan.market.business.abstracts.order.OrderService;
 import com.tunahan.market.business.abstracts.payment.PaymentService;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
@@ -20,6 +21,7 @@ import com.tunahan.market.dtos.responses.payment.CreatePaymentResponse;
 import com.tunahan.market.dtos.responses.payment.GetAllPaymentResponse;
 import com.tunahan.market.dtos.responses.payment.GetPaymentResponse;
 import com.tunahan.market.dtos.responses.payment.UpdatePaymentResponse;
+import com.tunahan.market.entities.order.Order;
 import com.tunahan.market.entities.payment.Payment;
 import com.tunahan.market.repository.payment.PaymentRepository;
 import com.tunahan.market.rules.order.OrderRules;
@@ -35,6 +37,7 @@ public class PaymentManager implements PaymentService{
 	private ModelMapperService mapperService;
 	private PaymentRules rules;
 	private OrderRules orderRules;
+	private OrderService orderService;
 
 	@Override
 	public DataResult<List<GetAllPaymentResponse>> getAll() {
@@ -66,6 +69,8 @@ public class PaymentManager implements PaymentService{
 		orderRules.checkIfOrderExists(request.getOrderId());
 		Payment payment = mapperService.forRequest().map(request, Payment.class);
 		payment.setId(0);
+		Order order = mapperService.forResponse().map(orderService.getById(request.getOrderId()).getData(), Order.class);
+		rules.checkIfInsufficientBalance(order.getTotalPrice(),request.getTotalPrice(),payment);
 		paymentRepository.save(payment);
 		CreatePaymentResponse result = mapperService.forResponse().map(payment, CreatePaymentResponse.class);
 		return new SuccessDataResult<CreatePaymentResponse>(result, "add");
