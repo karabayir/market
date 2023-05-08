@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.payment.PaymentService;
+import com.tunahan.market.core.messages.payment.PaymentMessages;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.dtos.requests.payment.CreatePaymentRequest;
@@ -28,43 +29,43 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/payments/")
+@RequestMapping(path = PaymentMessages.Controller.requestMapping)
 @AllArgsConstructor
 public class PaymentController {
 
 	private final PaymentService paymentService;
 	
-	@GetMapping("getAll")
+	@GetMapping(path = PaymentMessages.Controller.getAll)
 	public DataResult<List<GetAllPaymentResponse>> getAll(){
 		return paymentService.getAll();
 	}
 	
-	@GetMapping("getById/{id}")
+	@GetMapping(path = PaymentMessages.Controller.getById)
 	public DataResult<GetPaymentResponse> getById(@PathVariable long id){
 		return paymentService.getById(id);
 	}
 	
-	@GetMapping("getByConfirmNumber")
+	@GetMapping(path = PaymentMessages.Controller.getByConfirmNumber)
 	public DataResult<GetPaymentResponse> getByConfirmNumber(@RequestParam String number){
 		return paymentService.getByConfirmNumber(number);
 	}
 	
-	@PostMapping("add")
+	@PostMapping(path = PaymentMessages.Controller.add)
 	public DataResult<CreatePaymentResponse> add(@Valid @RequestBody CreatePaymentRequest request){
 		return paymentService.add(request);
 	}
 	
-	@PutMapping("update")
+	@PutMapping(path = PaymentMessages.Controller.update)
 	public DataResult<UpdatePaymentResponse> update(@Valid @RequestBody UpdatePaymentRequest request){
 		return paymentService.update(request);
 	}
 	
-	@GetMapping("getAllPageable")
+	@GetMapping(path = PaymentMessages.Controller.pageable)
 	public DataResult<Page<Payment>> getAllPageable(@RequestParam int number, @RequestParam int size){
 		return paymentService.getAllPageable(number, size);
 	}
 	
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping(path = PaymentMessages.Controller.deleteById)
 	public Result delete(@PathVariable long id) {
 		return paymentService.delete(id);
 	}

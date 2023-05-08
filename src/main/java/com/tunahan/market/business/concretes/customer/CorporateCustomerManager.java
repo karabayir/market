@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.customer.CorporateCustomerService;
+import com.tunahan.market.core.messages.customer.CorporateCustomerMessages;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
@@ -41,14 +42,14 @@ public class CorporateCustomerManager implements CorporateCustomerService{
 				.stream()
 				.map(cc -> mapperService.forResponse().map(cc, GetAllCorporateCustomerResponse.class))
 				.collect(Collectors.toList());
-		return new SuccessDataResult<List<GetAllCorporateCustomerResponse>>(result, "getAll");
+		return new SuccessDataResult<List<GetAllCorporateCustomerResponse>>(result,CorporateCustomerMessages.Result.getAllCorporate);
 	}
 	@Override
 	public DataResult<GetCorporateCustomerResponse> getById(long id) {
 		rules.checkIfCorporateCustomerExists(id);
 		CorporateCustomer customer = repository.findById(id).orElseThrow();
 		GetCorporateCustomerResponse result= mapperService.forResponse().map(customer, GetCorporateCustomerResponse.class);
-		return new SuccessDataResult<GetCorporateCustomerResponse>(result, "getById");
+		return new SuccessDataResult<GetCorporateCustomerResponse>(result,CorporateCustomerMessages.Result.getCorporateById);
 	}
 	@Override
 	public DataResult<List<GetCorporateCustomerResponse>> getByName(String name) {
@@ -58,14 +59,14 @@ public class CorporateCustomerManager implements CorporateCustomerService{
 				.stream()
 				.map(cc-> mapperService.forResponse().map(cc, GetCorporateCustomerResponse.class))
 				.collect(Collectors.toList());
-		return new SuccessDataResult<List<GetCorporateCustomerResponse>>(result, "getByName");
+		return new SuccessDataResult<List<GetCorporateCustomerResponse>>(result,CorporateCustomerMessages.Result.getCorporateByName);
 	}
 	@Override
 	public DataResult<GetCorporateCustomerResponse> getByTaxNumber(String taxNumber) {
 		rules.checkIfCorporateCustomerTaxNumberExists(taxNumber);
 		CorporateCustomer customer= repository.findByTaxNumber(taxNumber).orElseThrow();
 		GetCorporateCustomerResponse result = mapperService.forResponse().map(customer, GetCorporateCustomerResponse.class);
-		return new SuccessDataResult<GetCorporateCustomerResponse>(result, "getByTaxNumber");
+		return new SuccessDataResult<GetCorporateCustomerResponse>(result,CorporateCustomerMessages.Result.getCorporateByTaxNumber);
 	}
 	@Override
 	public DataResult<CreateCorporateCustomerResponse> add(CreateCorporateCustomerRequest request) {
@@ -73,7 +74,7 @@ public class CorporateCustomerManager implements CorporateCustomerService{
 		CorporateCustomer customer = mapperService.forRequest().map(request, CorporateCustomer.class);
 		repository.save(customer);
 		CreateCorporateCustomerResponse result = mapperService.forResponse().map(customer, CreateCorporateCustomerResponse.class);
-		return new SuccessDataResult<CreateCorporateCustomerResponse>(result, "add");
+		return new SuccessDataResult<CreateCorporateCustomerResponse>(result,CorporateCustomerMessages.Result.addCorporate);
 	}
 	@Override
 	public DataResult<UpdateCorporateCustomerResponse> update(UpdateCorporateCustomerRequest request) {
@@ -81,18 +82,18 @@ public class CorporateCustomerManager implements CorporateCustomerService{
 		CorporateCustomer customer = mapperService.forRequest().map(request, CorporateCustomer.class);
 		repository.save(customer);
 		UpdateCorporateCustomerResponse result = mapperService.forResponse().map(customer, UpdateCorporateCustomerResponse.class);
-		return new SuccessDataResult<UpdateCorporateCustomerResponse>(result, "update");
+		return new SuccessDataResult<UpdateCorporateCustomerResponse>(result,CorporateCustomerMessages.Result.updateCorporate);
 	}
 	@Override
 	public Result delete(long id) {
 		rules.checkIfCorporateCustomerExists(id);
 		repository.deleteById(id);
-		return new SuccessResult("delete");
+		return new SuccessResult(CorporateCustomerMessages.Result.deleteCorporate);
 	}
 	@Override
 	public DataResult<Page<CorporateCustomer>> getAllPageable(int number, int size) {
 		Pageable pageable = PageRequest.of(number, size);
 		Page<CorporateCustomer> result = repository.findAll(pageable);
-		return new SuccessDataResult<Page<CorporateCustomer>>(result, "getAllPageable");
+		return new SuccessDataResult<Page<CorporateCustomer>>(result,CorporateCustomerMessages.Result.getAllCorporatePageable);
 	}
 }

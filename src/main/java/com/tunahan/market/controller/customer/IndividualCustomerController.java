@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.customer.IndividualCustomerService;
+import com.tunahan.market.core.messages.customer.IndividualCustomerMessages;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.dtos.requests.customer.individual.CreateIndividualCustomerRequest;
@@ -28,48 +29,48 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/individualCustomer")
+@RequestMapping(path = IndividualCustomerMessages.Controller.requestMapping)
 @AllArgsConstructor
 public class IndividualCustomerController {
 
 	private final IndividualCustomerService service;
 	
-	@GetMapping("getAll")
+	@GetMapping(path = IndividualCustomerMessages.Controller.getAll)
 	DataResult <List<GetAllIndividualCustomerResponse>> getAll(){
 		return service.getAll();
 	}
 	
-	@GetMapping("getById/{id}")
+	@GetMapping(path = IndividualCustomerMessages.Controller.getById)
 	DataResult<GetIndividualCustomerResponse> getById(@PathVariable long id){
 		return service.getById(id);
 	}
 	
-	@GetMapping("getByTCKN")
+	@GetMapping(path = IndividualCustomerMessages.Controller.getByTCKN)
 	DataResult<GetIndividualCustomerResponse> getByTCKN(@RequestParam String TCKN){
 		return service.getByTCKN(TCKN);
 	}
 	
-	@GetMapping("getByName")
+	@GetMapping(path = IndividualCustomerMessages.Controller.getByName)
 	DataResult <List<GetIndividualCustomerResponse>> getByName(@RequestParam String name){
 		return service.getByName(name);
 	}
 	
-	@PostMapping("add")
+	@PostMapping(path = IndividualCustomerMessages.Controller.add)
 	DataResult<CreateIndividualCustomerResponse> add(@Valid @RequestBody CreateIndividualCustomerRequest request){
 		return service.add(request);
 	}
 	
-	@PutMapping("update")
+	@PutMapping(path = IndividualCustomerMessages.Controller.update)
 	public DataResult<UpdateIndividualCustomerResponse> update(@Valid @RequestBody UpdateIndividualCustomerRequest request){
 		return service.update(request);
 	}
 	
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping(path = IndividualCustomerMessages.Controller.deleteById)
 	public Result delete(@PathVariable long id) {
 		return service.delete(id);
 	}
 	
-	@GetMapping("getAllPageable")
+	@GetMapping(path = IndividualCustomerMessages.Controller.pageable)
 	public DataResult<Page<IndividualCustomer>> getAllPageable(@RequestParam int number, @RequestParam int size){
 		return service.getAllPageable(number, size);
 	}

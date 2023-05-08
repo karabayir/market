@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.product.ProductService;
+import com.tunahan.market.core.messages.product.ProductMessages;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.dtos.requests.product.CreateProductRequest;
@@ -28,43 +29,43 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/products/")
+@RequestMapping(path = ProductMessages.Controller.requestMapping)
 @AllArgsConstructor
 public class ProductController {
 
 	private final ProductService productService;
 	
-	@GetMapping("getAll")
+	@GetMapping(ProductMessages.Controller.getAll)
 	public DataResult<List<GetAllProductResponse>> getAll(){
 		return productService.getAll();
 	}
 	
-	@GetMapping("getById/{id}")
+	@GetMapping(ProductMessages.Controller.getById)
 	public DataResult<GetProductResponse> getById(@PathVariable long id) {
 		return productService.getById(id);
 	}
 	
-	@GetMapping("getByName")
+	@GetMapping(ProductMessages.Controller.getByName)
 	public DataResult<List<GetAllProductResponse>> getByName(@RequestParam String name){
 		return productService.getByName(name);
 	}
 	
-	@PostMapping("add")
+	@PostMapping(ProductMessages.Controller.add)
 	public DataResult<CreateProductResponse> add(@Valid @RequestBody CreateProductRequest request) {
 		return productService.add(request);
 	}
 	
-	@PutMapping("update")
+	@PutMapping(ProductMessages.Controller.update)
 	DataResult<UpdateProductResponse> update(@Valid @RequestBody UpdateProductRequest request){
 		return productService.update(request);
 	}
 	
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping(ProductMessages.Controller.deleteById)
 	public Result delete(@PathVariable long id) {
 		return productService.delete(id);
 	}
 	
-	@GetMapping("getAllPageable")
+	@GetMapping(ProductMessages.Controller.pageable)
 	public DataResult<Page<Product>> getAllPageable(@RequestParam int number, @RequestParam int size){
 		return productService.getAllPageable(number, size);
 	}

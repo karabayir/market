@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.order.OrderService;
+import com.tunahan.market.core.messages.order.OrderMessages;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.dtos.requests.order.CreateOrderRequest;
@@ -28,38 +29,38 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/orders/")
+@RequestMapping(path = OrderMessages.Controller.requestMapping)
 @AllArgsConstructor
 public class OrderController {
 
 	private final OrderService orderService;
 	
-	@GetMapping("getAll")
+	@GetMapping(path = OrderMessages.Controller.getAll)
 	public DataResult<List<GetAllOrderResponse>> getAll(){
 		return orderService.getAll();
 	}
 	
-	@GetMapping("getById/{id}")
+	@GetMapping(path = OrderMessages.Controller.getById)
 	public DataResult<GetOrderResponse> getById(@PathVariable long id) {
 		return orderService.getById(id);
 	}
 	
-	@PostMapping("add")
+	@PostMapping(path = OrderMessages.Controller.add)
 	public DataResult<CreateOrderResponse> add(@Valid @RequestBody CreateOrderRequest request) {
 		return orderService.add(request);
 	}
 	
-	@PutMapping("update")
+	@PutMapping(path = OrderMessages.Controller.update)
 	public DataResult<UpdateOrderResponse> update(@Valid @RequestBody UpdateOrderRequest request){
 		return orderService.update(request);
 	}
 	
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping(path = OrderMessages.Controller.deleteById)
 	public Result delete(long id) {
 		return orderService.delete(id);
 	}
 	
-	@GetMapping("getAllPageable")
+	@GetMapping(path = OrderMessages.Controller.pageable)
 	public DataResult<Page<Order>> getAllPageable(@RequestParam int number, @RequestParam int size){
 		return orderService.getAllPageable(number, size);
 	}

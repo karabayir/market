@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.category.CategoryService;
+import com.tunahan.market.core.messages.category.CategoryMessages;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.dtos.requests.category.CreateCategoryRequest;
@@ -28,43 +29,43 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/categories/")
+@RequestMapping(path = CategoryMessages.Controller.requestMapping)
 @AllArgsConstructor
 public class CategoryController {
 
 	private final CategoryService categoryService;
 	
-	@GetMapping("getAll")
+	@GetMapping(path = CategoryMessages.Controller.getAll)
 	public DataResult<List<GetAllCategoryResponse>> getAll(){
 		return categoryService.getAll();
 	}
 	
-	@GetMapping("getById/{id}")
+	@GetMapping(path = CategoryMessages.Controller.getById)
 	public DataResult<GetCategoryResponse> getById(@PathVariable long id) {
 		return categoryService.getById(id);
 	}
 	
-	@GetMapping("getByName")
+	@GetMapping(path = CategoryMessages.Controller.getByName)
 	public DataResult<GetCategoryResponse> getByName(@RequestParam String name) {
 		return categoryService.getByName(name);
 	}
 	
-	@PostMapping("add")
+	@PostMapping(path = CategoryMessages.Controller.add)
 	public DataResult<CreateCategoryResponse> add(@Valid @RequestBody CreateCategoryRequest createRequest) {
 		return categoryService.add(createRequest);
 	}
 	
-	@PutMapping("update")
+	@PutMapping(path = CategoryMessages.Controller.update)
 	public DataResult<UpdateCategoryResponse> update(@Valid @RequestBody UpdateCategoryRequest request){
 		return categoryService.update(request);
 	}
 	
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping(path = CategoryMessages.Controller.deleteById)
 	public Result delete(@PathVariable long id) {
 		return categoryService.delete(id);
 	}
 	
-	@GetMapping("getAllPageable")
+	@GetMapping(path = CategoryMessages.Controller.pageable)
 	public DataResult<Page<Category>> getAllPageable(@RequestParam int number, @RequestParam int size){
 		return categoryService.getAllPageable(number, size);
 	}

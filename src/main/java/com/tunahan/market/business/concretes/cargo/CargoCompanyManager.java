@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.cargo.CargoCompanyService;
+import com.tunahan.market.core.messages.cargo.CargoCompanyMessages;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
@@ -40,7 +41,7 @@ public class CargoCompanyManager implements CargoCompanyService{
 				.stream()
 				.map(c -> mapperService.forResponse().map(c, GetAllCargoCompanyReponse.class))
 				.collect(Collectors.toList());
-		return new SuccessDataResult<List<GetAllCargoCompanyReponse>>(result, "getAll");
+		return new SuccessDataResult<List<GetAllCargoCompanyReponse>>(result,CargoCompanyMessages.Result.getAllCargo);
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class CargoCompanyManager implements CargoCompanyService{
 		rules.checkIfCargoCompanyExists(id);
 		CargoCompany company = cargoRepository.findById(id).orElseThrow();
 		GetCargoCompanyResponse result= mapperService.forResponse().map(company, GetCargoCompanyResponse.class);
-		return new SuccessDataResult<GetCargoCompanyResponse>(result, "getById");
+		return new SuccessDataResult<GetCargoCompanyResponse>(result,CargoCompanyMessages.Result.getCargoById);
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class CargoCompanyManager implements CargoCompanyService{
 		rules.checkIfCargoCompanyExists(name);
 		CargoCompany company = cargoRepository.findByName(name).orElseThrow();
 		GetCargoCompanyResponse result= mapperService.forResponse().map(company, GetCargoCompanyResponse.class);
-		return new SuccessDataResult<GetCargoCompanyResponse>(result, "getByName");
+		return new SuccessDataResult<GetCargoCompanyResponse>(result,CargoCompanyMessages.Result.getCargoByName);
 	}
 
 	@Override
@@ -65,7 +66,7 @@ public class CargoCompanyManager implements CargoCompanyService{
 		CargoCompany company = mapperService.forRequest().map(request, CargoCompany.class);
 		cargoRepository.save(company);
 		CreateCargoCompanyResponse result= mapperService.forResponse().map(company, CreateCargoCompanyResponse.class);
-		return new SuccessDataResult<CreateCargoCompanyResponse>(result, "add");
+		return new SuccessDataResult<CreateCargoCompanyResponse>(result,CargoCompanyMessages.Result.addCargoCompany);
 	}
 
 	@Override
@@ -74,21 +75,21 @@ public class CargoCompanyManager implements CargoCompanyService{
 		CargoCompany company = mapperService.forRequest().map(request, CargoCompany.class);
 		cargoRepository.save(company);
 		UpdateCargoCompanyResponse result= mapperService.forResponse().map(company, UpdateCargoCompanyResponse.class);
-		return new SuccessDataResult<UpdateCargoCompanyResponse>(result, "update");
+		return new SuccessDataResult<UpdateCargoCompanyResponse>(result,CargoCompanyMessages.Result.updateCargoCompany);
 	}
 
 	@Override
 	public Result delete(long id) {
 		rules.checkIfCargoCompanyExists(id);
 		cargoRepository.deleteById(id);
-		return new SuccessResult("delete");
+		return new SuccessResult(id+CargoCompanyMessages.Result.deleteCargoCompany);
 	}
 
 	@Override
 	public DataResult<Page<CargoCompany>> getAllPageable(int number, int size) {
 		Pageable pageable = PageRequest.of(number, size);
 		Page<CargoCompany> result= cargoRepository.findAll(pageable);
-		return new SuccessDataResult<Page<CargoCompany>>(result, "getAllPageable");
+		return new SuccessDataResult<Page<CargoCompany>>(result,CargoCompanyMessages.Result.getAllCargoPageable);
 	}
 	
 

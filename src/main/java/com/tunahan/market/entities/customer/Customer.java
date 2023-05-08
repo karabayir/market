@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tunahan.market.entities.address.Address;
 import com.tunahan.market.entities.address.Location;
+import com.tunahan.market.entities.comment.Review;
 import com.tunahan.market.entities.order.Order;
 
 import jakarta.persistence.Entity;
@@ -42,5 +43,7 @@ public class Customer {
 	@OneToMany(mappedBy = "customer")
 	private List<Order> orderList;
 	
+	@OneToMany(mappedBy = "customer")
+	private List<Review> reviewList;
 	
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.cargo.CargoCompanyService;
+import com.tunahan.market.core.messages.cargo.CargoCompanyMessages;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.dtos.requests.cargo.CreateCargoCompanyRequest;
@@ -28,43 +29,43 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/cargoCompanies/")
+@RequestMapping(path = CargoCompanyMessages.Controller.requestMapping)
 @AllArgsConstructor
 public class CargoCompanyController {
 
 	private final CargoCompanyService cargoService;
 	
-	@GetMapping("getAll")
+	@GetMapping(path =CargoCompanyMessages.Controller.getAll)
 	public DataResult<List<GetAllCargoCompanyReponse>> getAll(){
 		return cargoService.getAll();
 	}
 	
-	@GetMapping("getById/{id}")
+	@GetMapping(path = CargoCompanyMessages.Controller.getById)
 	public DataResult<GetCargoCompanyResponse> getById(@PathVariable long id) {
 		return cargoService.getById(id);
 	}
 	
-	@GetMapping("getByName")
+	@GetMapping(path = CargoCompanyMessages.Controller.getByName)
 	public DataResult<GetCargoCompanyResponse> getByName(@RequestParam String name) {
 		return cargoService.getByName(name);
 	}
 	
-	@PostMapping("add")
+	@PostMapping(path = CargoCompanyMessages.Controller.add)
 	public DataResult<CreateCargoCompanyResponse> add(@Valid @RequestBody CreateCargoCompanyRequest request) {
 		return cargoService.add(request);
 	}
 	
-	@PutMapping("update")
+	@PutMapping(path = CargoCompanyMessages.Controller.update)
 	public DataResult<UpdateCargoCompanyResponse> update(@Valid @RequestBody UpdateCargoCompanyRequest request){
 		return cargoService.update(request);
 	}
 	
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping(path = CargoCompanyMessages.Controller.deleteById)
 	public Result delete(@PathVariable long id) {
 		return cargoService.delete(id);
 	}
 	
-	@GetMapping("getAllPageable")
+	@GetMapping(path = CargoCompanyMessages.Controller.pageable)
 	public DataResult<Page<CargoCompany>> getAllPageable(@RequestParam int number, @RequestParam int size){
 		return cargoService.getAllPageable(number, size);
 	}

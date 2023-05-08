@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tunahan.market.business.abstracts.customer.IndividualCustomerService;
+import com.tunahan.market.core.messages.customer.IndividualCustomerMessages;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
@@ -40,7 +41,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 				.stream()
 				.map(ic -> mapperService.forResponse().map(ic, GetAllIndividualCustomerResponse.class))
 				.collect(Collectors.toList());
-		return new SuccessDataResult<List<GetAllIndividualCustomerResponse>>(result, "getAll");
+		return new SuccessDataResult<List<GetAllIndividualCustomerResponse>>(result,IndividualCustomerMessages.Result.getAllIndividual);
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 		rules.checkIfIndividualCustomerExists(id);
 		IndividualCustomer customer = repository.findById(id).orElseThrow();
 		GetIndividualCustomerResponse result = mapperService.forResponse().map(customer, GetIndividualCustomerResponse.class);
-		return new SuccessDataResult<GetIndividualCustomerResponse>(result, "getById");
+		return new SuccessDataResult<GetIndividualCustomerResponse>(result,IndividualCustomerMessages.Result.getIndividualById);
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 		rules.checkIfIndividualCustomerTCKNExists(TCKN);
 		IndividualCustomer customer= repository.findByTCKN(TCKN).orElseThrow();
 		GetIndividualCustomerResponse result = mapperService.forResponse().map(customer, GetIndividualCustomerResponse.class);
-		return new SuccessDataResult<GetIndividualCustomerResponse>(result, "getByTCKN");
+		return new SuccessDataResult<GetIndividualCustomerResponse>(result,IndividualCustomerMessages.Result.getIndividualByTCKN);
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 				.stream()
 				.map(c -> mapperService.forResponse().map(c, GetIndividualCustomerResponse.class))
 				.collect(Collectors.toList());
-		return new SuccessDataResult<List<GetIndividualCustomerResponse>>(result, "getByName");
+		return new SuccessDataResult<List<GetIndividualCustomerResponse>>(result,IndividualCustomerMessages.Result.getIndividualByName);
 	}
 
 	@Override
@@ -76,7 +77,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 		IndividualCustomer customer = mapperService.forRequest().map(request, IndividualCustomer.class);
 		repository.save(customer);
 		CreateIndividualCustomerResponse result = mapperService.forResponse().map(customer, CreateIndividualCustomerResponse.class);
-		return new SuccessDataResult<CreateIndividualCustomerResponse>(result, "add");
+		return new SuccessDataResult<CreateIndividualCustomerResponse>(result,IndividualCustomerMessages.Result.addIndividual);
 	}
 
 	@Override
@@ -85,21 +86,21 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 		IndividualCustomer customer = mapperService.forRequest().map(request, IndividualCustomer.class);
 		repository.save(customer);
 		UpdateIndividualCustomerResponse result = mapperService.forResponse().map(customer, UpdateIndividualCustomerResponse.class);
-		return new SuccessDataResult<UpdateIndividualCustomerResponse>(result, "update");
+		return new SuccessDataResult<UpdateIndividualCustomerResponse>(result,IndividualCustomerMessages.Result.updateIndividual);
 	}
 
 	@Override
 	public Result delete(long id) {
 		rules.checkIfIndividualCustomerExists(id);
 		repository.deleteById(id);
-		return new SuccessResult("delete");
+		return new SuccessResult(IndividualCustomerMessages.Result.deleteIndividual);
 	}
 
 	@Override
 	public DataResult<Page<IndividualCustomer>> getAllPageable(int number, int size) {
 		Pageable pageable = PageRequest.of(number, size);
 		Page<IndividualCustomer> result = repository.findAll(pageable);
-		return new SuccessDataResult<Page<IndividualCustomer>>(result, "getAllPageable");
+		return new SuccessDataResult<Page<IndividualCustomer>>(result,IndividualCustomerMessages.Result.getAllIndividualPageable);
 	}
 
 }

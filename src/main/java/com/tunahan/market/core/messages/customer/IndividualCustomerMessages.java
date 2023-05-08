@@ -18,4 +18,25 @@ public class IndividualCustomerMessages {
 		public static  final String lengthIndividualTCKN ="individual.lengthIdentityNumber";
 		public static  final String lengthIndividualPhone ="individual.lengthPhone";
 	}
+    public static class Result{
+		public static final String  getAllIndividual ="Individual List";
+		public static final String  getIndividualById ="Get Individual By Id";
+		public static final String  getIndividualByName ="Get Individual By Name";
+		public static final String  getIndividualByTCKN="Get Individual By Tax Number";
+		public static final String  addIndividual ="Added Individual";
+		public static final String  updateIndividual ="Updated Individual";
+		public static final String  deleteIndividual ="Deleted Individual";
+		public static final String  getAllIndividualPageable ="Individual List Pageable";
+	}
+	public static class Controller{
+		public static final String  requestMapping="/api/IndividualCustomers/";
+		public static final String  getAll="getAll";
+		public static final String  getById="getById/{id}";
+		public static final String  getByName="getByName";
+		public static final String  getByTCKN="getByTCKN";
+		public static final String  add="add";
+		public static final String  update="update";
+		public static final String  deleteById="delete/{id}";
+		public static final String  pageable="getAllPageable";
+	}
 }

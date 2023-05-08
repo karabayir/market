@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.tunahan.market.business.abstracts.discount.DiscountService;
 import com.tunahan.market.business.abstracts.order.OrderService;
 import com.tunahan.market.business.abstracts.product.ProductService;
+import com.tunahan.market.core.messages.order.OrderMessages;
 import com.tunahan.market.core.utilities.mapping.ModelMapperService;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
@@ -52,7 +53,7 @@ public class OrderManager implements OrderService{
 				.stream()
 				.map(o -> mapperService.forResponse().map(o, GetAllOrderResponse.class))
 				.collect(Collectors.toList());
-		return new SuccessDataResult<List<GetAllOrderResponse>>(result, "getAll");
+		return new SuccessDataResult<List<GetAllOrderResponse>>(result,OrderMessages.Result.getAllOrder);
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class OrderManager implements OrderService{
 		rules.checkIfOrderExists(id);
 		Order order = orderRepository.findById(id).orElseThrow();
 		GetOrderResponse result= mapperService.forResponse().map(order, GetOrderResponse.class);
-		return new SuccessDataResult<GetOrderResponse>(result, "getById");
+		return new SuccessDataResult<GetOrderResponse>(result,OrderMessages.Result.getOrderById);
 	}
 
 	@Override
@@ -77,7 +78,7 @@ public class OrderManager implements OrderService{
 		order.setTotalPrice(price-(price*discount.getRate()));
 		orderRepository.save(order);
 		CreateOrderResponse result= mapperService.forResponse().map(order, CreateOrderResponse.class);
-		return new SuccessDataResult<CreateOrderResponse>(result, "add");
+		return new SuccessDataResult<CreateOrderResponse>(result,OrderMessages.Result.addOrder);
 	}
 
 	@Override
@@ -95,21 +96,21 @@ public class OrderManager implements OrderService{
 		order.setTotalPrice(price-(price*discount.getRate()));
 		orderRepository.save(order);
 		UpdateOrderResponse result= mapperService.forResponse().map(order, UpdateOrderResponse.class);
-		return new SuccessDataResult<UpdateOrderResponse>(result, "update");
+		return new SuccessDataResult<UpdateOrderResponse>(result,OrderMessages.Result.updateOrder);
 	}
 
 	@Override
 	public Result delete(long id) {
 		rules.checkIfOrderExists(id);
 		orderRepository.deleteById(id);
-		return new SuccessResult("delete");
+		return new SuccessResult(OrderMessages.Result.deleteOrder);
 	}
 
 	@Override
 	public DataResult<Page<Order>> getAllPageable(int number, int size) {
 		Pageable pageable = PageRequest.of(number, size);
 		Page<Order> result = orderRepository.findAll(pageable);
-		return new SuccessDataResult<Page<Order>>(result, "getAllPageable");
+		return new SuccessDataResult<Page<Order>>(result,OrderMessages.Result.getAllOrderPageable);
 	}
 
 }

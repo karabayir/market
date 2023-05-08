@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tunahan.market.business.abstracts.seller.SellerService;
+import com.tunahan.market.core.messages.seller.SellerMessages;
 import com.tunahan.market.core.utilities.result.DataResult;
 import com.tunahan.market.core.utilities.result.Result;
 import com.tunahan.market.dtos.requests.seller.CreateSellerRequest;
@@ -28,48 +29,48 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/sellers/")
+@RequestMapping(path = SellerMessages.Controller.requestMapping)
 @AllArgsConstructor
 public class SellerController {
 
 	private final SellerService sellerService;
 	
-	@GetMapping("getAll")
+	@GetMapping(path = SellerMessages.Controller.getAll)
 	public DataResult<List<GetAllSellerResponse>> getAll(){
 		return sellerService.getAll();
 	}
 	
-	@GetMapping("getById/{id}")
+	@GetMapping(path = SellerMessages.Controller.getById)
 	public DataResult<GetSellerResponse> getById(@PathVariable long id) {
 		return sellerService.getById(id);
 	}
 	
-	@GetMapping("getByName")
+	@GetMapping(path = SellerMessages.Controller.getByName)
 	public DataResult<List<GetSellerResponse>> getByName(@RequestParam String name){
 		return sellerService.getByName(name);
 	}
 	
-	@GetMapping("getByTaxNumber")
+	@GetMapping(path = SellerMessages.Controller.getByTaxNumber)
 	public DataResult<GetSellerResponse> getByTaxNumber(@RequestParam String number){
 		return sellerService.getByTaxNumber(number);
 	}
 	
-	@PostMapping("add")
+	@PostMapping(path = SellerMessages.Controller.add)
 	public DataResult<CreateSellerResponse> add(@Valid @RequestBody CreateSellerRequest request) {
 		return sellerService.add(request);
 	}
 	
-	@PutMapping("update")
+	@PutMapping(path = SellerMessages.Controller.update)
 	DataResult<UpdateSellerResponse> update(@Valid @RequestBody UpdateSellerRequest request){
 		return sellerService.update(request);
 	}
 	
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping(path = SellerMessages.Controller.deleteById)
 	public Result delete(@PathVariable long id) {
 		return sellerService.delete(id);
 	}
 	
-	@GetMapping("getAllPageable")
+	@GetMapping(path = SellerMessages.Controller.pageable)
 	public DataResult<Page<Seller>> getAllPageable(@RequestParam int number, @RequestParam int size){
 		return sellerService.getAllPageable(number, size);
 	}
