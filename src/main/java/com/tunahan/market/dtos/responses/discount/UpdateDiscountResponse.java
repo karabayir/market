@@ -1,4 +1,4 @@
-package com.tunahan.market.dtos.responses.order;
+package com.tunahan.market.dtos.responses.discount;
 
 import java.time.LocalDate;
 
@@ -11,13 +11,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateOrderResponse{
+public class UpdateDiscountResponse {
 
 	private long id;
-	private long customerId;
 	private long productId;
-	private LocalDate date;
-	private int productQuantity;
-	private double totalPrice;
-	private double discountRate;
+	private String name;
+	private double rate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 }

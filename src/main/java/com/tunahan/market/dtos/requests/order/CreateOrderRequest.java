@@ -1,5 +1,6 @@
 package com.tunahan.market.dtos.requests.order;
 
+
 import com.tunahan.market.core.constant.order.OrderConstants;
 
 import jakarta.validation.constraints.Min;
@@ -24,4 +25,7 @@ public class CreateOrderRequest{
 	@Min(value = OrderConstants.minProductQuantity,
 		 message = "{order.minimumProductQuantity}")
 	private int productQuantity;
+	
+	@Positive
+	private long discountId;
 }

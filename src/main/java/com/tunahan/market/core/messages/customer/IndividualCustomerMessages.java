@@ -8,7 +8,7 @@ public class IndividualCustomerMessages {
 	}
     public static class Validation{	
 		public static  final String nullIndividualEmail="individual.nullMail";
-		public static  final String nullIndividualBirthDate="corporate.nullBirthDay";
+		public static  final String nullIndividualBirthDate="individual.nullBirthDay";
 		public static  final String nullIndividualFirstName="individual.nullFirtName";
 		public static  final String nullIndividualLastName="individual.nullLastName";
 		public static  final String nullIndividualTCKN="individual.nullIdentityNumber";

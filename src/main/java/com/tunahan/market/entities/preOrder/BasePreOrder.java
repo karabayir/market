@@ -1,6 +1,6 @@
 package com.tunahan.market.entities.preOrder;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +18,7 @@ public abstract class BasePreOrder {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private Date startDate;
-	private Date endDate;
+	private LocalDate startDate = LocalDate.now();
+	private LocalDate endDate;
 	
 }

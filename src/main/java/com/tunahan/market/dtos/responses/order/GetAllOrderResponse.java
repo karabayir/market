@@ -19,4 +19,5 @@ public class GetAllOrderResponse{
 	private LocalDate date;
 	private int productQuantity;
 	private double totalPrice;
+	private double discountRate;
 }

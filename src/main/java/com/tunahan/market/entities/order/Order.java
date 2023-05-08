@@ -41,6 +41,7 @@ public class Order {
 	private List<Installment> installmentList;
 	
 	private int productQuantity;
+	private double discountRate;
 	private LocalDate date = LocalDate.now();
 	private double totalPrice;
 }

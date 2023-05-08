@@ -24,7 +24,8 @@ public class MessageSourceConfiguration {
 	    		"messages/customer/corporate/CorporateMessages",
 	    		"messages/customer/individual/IndividualMessages",
 	    		"messages/customer/customer/CustomerMessages",
-	    		"messages/payment/PaymentMessages"
+	    		"messages/payment/PaymentMessages",
+	    		"messages/discount/DiscountMessages"
 	    		);
 	    messageSource.setDefaultEncoding("UTF-8");
 	    return messageSource;
